@@ -104,6 +104,17 @@
 % \begin{verbatim}
 % \documentclass{jfp-epi}
 % \end{verbatim}
+%
+% \subsection{Special article types}
+%
+% JFP has a number of special article types in addition to standard
+% research papers: functional pearls, theoretical pearls, and
+% ``education matters'' papers. These are specified via an option
+% given to the document class; for example:
+% \begin{verbatim}
+% \documentclass[pearl]{jfp-epi}
+% \end{verbatim}
+% Valid choices are \texttt{research} (the default), \texttt{pearl}, \texttt{theory}, \texttt{education}.
 
 % \section{Adapting a document written using \texttt{acmart}}
 %
@@ -2725,6 +2736,35 @@
 % 
 %
 % \end{macro}
+
+% \begin{macro}{\JFP@articleType}
+% JFP special article types (functional pearl, theoretical pearl, education matters, or standard research paper).
+%    \begin{macrocode}
+\define@choicekey*+{JFP}{articleType}[\JFP@articleType\JFP@articleType@nr]{%
+  research,pearl,theory,education}{%
+\ifcase\JFP@articleType@nr % research
+  \let\@jfp@article@type@banner\relax
+\or % functional pearl
+  \def\@jfp@article@type@banner{F~U~N~C~T~I~O~N~A~L\hskip0.7em P~E~A~R~L}
+\or % theoretical pearl
+  \def\@jfp@article@type@banner{T~H~E~O~R~E~T~I~C~A~L\hskip0.7em P~E~A~R~L}
+\or % education matters
+  \def\@jfp@article@type@banner{E~D~U~C~A~T~I~O~N\hskip0.7em M~A~T~T~E~R~S}
+\fi
+\ClassInfo{\@classname}{Using article type \JFP@articleType}%
+}{%
+  \ClassError{\@classname}{Incorrect article type #1}%
+}%
+\let\@jfp@article@type@banner\relax
+\def\jfpArticleType#1{\setkeys{JFP}{articleType=#1}} % jfp
+\def\JFP@articleType@nr{0} % jfp
+\DeclareOptionX{research}{\jfpArticleType{research}} % following four for jfp
+\DeclareOptionX{pearl}{\jfpArticleType{pearl}}
+\DeclareOptionX{theory}{\jfpArticleType{theory}}
+\DeclareOptionX{education}{\jfpArticleType{education}}
+%    \end{macrocode}
+% \end{macro}
+
 %
 % \changes{v1.01}{2016/04/18}{Explicitly put draft option
 % (closes \url{https://github.com/borisveytsman/acmart/issues/4})}
