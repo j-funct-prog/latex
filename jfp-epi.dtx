@@ -2601,7 +2601,7 @@
     \PackageInfo{\@classname}{Not using nonacm mode}%
   \fi}{\PackageError{\@classname}{The option nonacm can be either true or
     false}}
-\ExecuteOptionsX{nonacm=false}
+\ExecuteOptionsX{nonacm=true}
 %    \end{macrocode}
 %
 % \end{macro}
@@ -6110,7 +6110,7 @@
 %   This is the syntactic sugar around setting keys.
 %    \begin{macrocode}
 \def\setcopyright#1{\setkeys{ACM@}{acmcopyrightmode=#1}}
-\setcopyright{acmlicensed}
+\setcopyright{cc}
 %    \end{macrocode}
 %
 % \end{macro}
