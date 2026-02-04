@@ -1,17 +1,18 @@
 #
-# Makefile for acmart package
+# Makefile for jfp-epi package, based on acmart
 #
 # This file is in public domain
 #
 
-PACKAGE=acmart
+PACKAGE=jfp-epi
 
 
-PDF = $(PACKAGE).pdf acmguide.pdf
+# PDF = $(PACKAGE).pdf acmguide.pdf
+PDF = $(PACKAGE).pdf 
 
 
-all:  ${PDF}
-	cd samples && ${MAKE} $@
+# all:  ${PDF}
+#	cd samples && ${MAKE} $@
 
 %.pdf:  %.dtx   $(PACKAGE).cls
 	pdflatex $<
@@ -24,23 +25,24 @@ all:  ${PDF}
 	do pdflatex $<; done
 
 
-acmguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
-	pdflatex -jobname acmguide $(PACKAGE).dtx
-	- bibtex acmguide
-	pdflatex -jobname acmguide $(PACKAGE).dtx
-	while ( grep -q '^LaTeX Warning: Label(s) may have changed' acmguide.log) \
-	do pdflatex -jobname acmguide $(PACKAGE).dtx; done
+# acmguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
+# 	pdflatex -jobname acmguide $(PACKAGE).dtx
+# 	- bibtex acmguide
+# 	pdflatex -jobname acmguide $(PACKAGE).dtx
+# 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' acmguide.log) \
+# 	do pdflatex -jobname acmguide $(PACKAGE).dtx; done
 
 %.cls:   %.ins %.dtx
 	pdflatex $<
 
-%-tagged.cls:   %.ins %.dtx
-	pdflatex $<
+# %-tagged.cls:   %.ins %.dtx
+# 	pdflatex $<
 
 
 
 
-.PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls $(PACKAGE)-tagged.cls
+# .PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls $(PACKAGE)-tagged.cls
+.PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls
 
 docclean:
 	$(RM)  *.log *.aux \
@@ -52,8 +54,9 @@ docclean:
 
 
 clean: docclean
-	$(RM)  $(PACKAGE).cls $(PACKAGE)-tagged.cls 
-	cd samples && ${MAKE} $@
+#	$(RM)  $(PACKAGE).cls $(PACKAGE)-tagged.cls 
+	$(RM)  $(PACKAGE).cls 
+#	cd samples && ${MAKE} $@
 
 distclean: clean
 	$(RM)  *.pdf 
@@ -62,21 +65,21 @@ distclean: clean
 #
 # Archive for the distribution. Includes typeset documentation
 #
-archive:  all clean
-	COPYFILE_DISABLE=1 tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude '*.tgz' --exclude '*.zip'  --exclude CVS --exclude '.git*' $(PACKAGE); mv ../$(PACKAGE).tgz .
+#archive:  all clean
+#	COPYFILE_DISABLE=1 tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude '*.tgz' --exclude '*.zip'  --exclude CVS --exclude '.git*' $(PACKAGE); mv ../$(PACKAGE).tgz .
 
-zip:  all clean
-	zip -r  $(PACKAGE).zip * -x '*~' -x '*.tgz' -x '*.zip' -x CVS -x 'CVS/*'
+#zip:  all clean
+#	zip -r  $(PACKAGE).zip * -x '*~' -x '*.tgz' -x '*.zip' -x CVS -x 'CVS/*'
 
 # distros
-distros: all docclean
-	zip -r acm-distro.zip  \
-	acmart.pdf acmguide.pdf samples *.cls ACM-Reference-Format.* \
-	--exclude samples/sample-acmengage*
-	zip -r acmengage-distro.zip samples/sample-acmengage* \
-	samples/*.bib \
-	acmart.pdf acmguide.pdf  *.cls ACM-Reference-Format.*
+#distros: all docclean
+#	zip -r acm-distro.zip  \
+#	acmart.pdf acmguide.pdf samples *.cls ACM-Reference-Format.* \
+#	--exclude samples/sample-acmengage*
+#	zip -r acmengage-distro.zip samples/sample-acmengage* \
+#	samples/*.bib \
+#	acmart.pdf acmguide.pdf  *.cls ACM-Reference-Format.*
 
-acmcp.zip: all acmart.cls
-	zip $@ $+
+#acmcp.zip: all acmart.cls
+#	zip $@ $+
 

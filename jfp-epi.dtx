@@ -1,6 +1,5 @@
 % \iffalse
 %
-% Copyright 2016-2025, Association for Computing Machinery
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
 % version 1.3 of this license or (at your option) any
@@ -12,15 +11,11 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
-% The Current Maintainer of this work is Boris Veytsman,
-% <borisv@lk.net>
+% The Current Maintainer of this work is 
+% Jeremy Gibbons <jeremy.gibbons@cs.ox.ac.uk>
 %
-% This work consists of the file acmart.dtx, the derived file
-% acmart.cls, the files ACM-Reference-Format.bst, and templates
-% sample-acmlarge.tex, sample-acmsmall.tex, sample-acmtog.tex,
-% samplebody-conf.tex, samplebody-journals.tex, sample-manuscript.tex,
-% sample-sigconf-authordraft.tex, sample-sigconf.tex,
-% sample-sigplan.tex
+% This work consists of the file jfp-epi.dtx, 
+% and the derived file jfp-epi.cls
 %
 % \fi
 %
@@ -43,7 +38,7 @@
 %
 %
 % \MakeShortVerb{|}
-% \def\guide{acmguide}
+% \def\guide{jfpguide}
 % \iffalse
 % From
 % http://tex.stackexchange.com/questions/117892/can-i-convert-a-string-to-catcode-11 by egreg
@@ -55,17 +50,14 @@
 % \endgroup
 %
 % \ifx\currentjob\guide\OnlyDescription\fi
-% \GetFileInfo{acmart.dtx}
-% \title{\LaTeX{} Class for the \emph{Association for Computing
-% Machinery}\thanks{\copyright 2016--2025, Association for Computing Machinery}}
-% \author{Boris Veytsman\thanks{%
-% \href{mailto:borisv@lk.net}{\texttt{borisv@lk.net}},
-% \href{mailto:boris@varphi.com}{\texttt{boris@varphi.com}}}}
+% \GetFileInfo{jfp-epi.dtx}
+% \title{\LaTeX{} Class for the \emph{Journal of Functional Programming}}
+% \author{Jeremy Gibbons, after Boris Veytsman}
 % \date{\filedate, \fileversion}
 % \maketitle
 % \begin{abstract}
-%   This package provides a class for typesetting publications of
-%   the Association for Computing Machinery.
+%   This package provides a class for typesetting 
+%   articles in the Journal of Functional Programming.
 % \end{abstract}
 % \tableofcontents
 %
@@ -2358,128 +2350,13 @@
 %    \begin{macrocode}
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<*gobble>
-\ProvidesFile{acmart.dtx}
+\ProvidesFile{jfp-epi.dtx}
 %</gobble>
-%<class&!tagged>\ProvidesClass{acmart}
-%<tagged>\ProvidesClass{acmart-tagged}
-[2025/11/01 v2.17 Typesetting articles for the Association for Computing Machinery]
+%<class>\ProvidesClass{jfp-epi}
+[2025/11/01 v2.17 Typesetting articles for the Journal of Functional Programming]
 %    \end{macrocode}
 %
-% \changes{v1.00}{2016/04/14}{First released version}
-% \changes{v1.01}{2016/04/18}{Defined ACM colors}
-% \changes{v1.01}{2016/04/18}{Changed hyperref colors in screen mode
-% (closes \url{https://github.com/borisveytsman/acmart/issues/1})}
-% \changes{v1.01}{2016/04/18}{Set headheight to 1pc for all formats
-% (closes \url{https://github.com/borisveytsman/acmart/issues/5})}
-% \changes{v1.02}{2016/04/21}{Documentation changes
-% (closes \url{https://github.com/borisveytsman/acmart/issues/13})}
-% \changes{v1.02}{2016/04/21}{Added TOPS and TSC
-% (closes \url{https://github.com/borisveytsman/acmart/issues/12})}
-% \changes{v1.03}{2016/04/22}{Added authorversion option
-% (closes \url{https://github.com/borisveytsman/acmart/issues/9})}
-% \changes{v1.03}{2016/04/22}{Added anonsuppress environment}
-% \changes{v1.04}{2016/04/26}{Updated bibliography for siggraph}
-% \changes{v1.05}{2016/04/27}{Patched \cs{setcitestyle} command;
-% closes \url{https://github.com/borisveytsman/acmart/issues/19}}
-% \changes{v1.05}{2016/04/27}{Added processing doi numbers for
-% acmsiggraph and doi numbers for sigproc.bib}
-% \changes{v1.08}{2016/05/13}{SIGPLAN reformatting by Matthew Fluet}
-% \changes{v1.08}{2016/05/13}{Typos corrected (Tobias Pape)}
-% \changes{v1.09}{2016/05/18}{Revert SIGPLAN caption rules}
-% \changes{v1.11}{2016/05/27}{Customization of ACM theorem styles and
-% proof environment by Matthew Fluet}
-% \changes{v1.12}{2016/05/30}{Documentation updates}
-% \changes{v1.14}{2016/06/09}{\cs{citestyle} updates (Matthew Fluet)}
-% \changes{v1.16}{2016/07/07}{Formatting header/footer (Matthew
-% Fluet)}
-% \changes{v1.18}{2016/07/10}{Natbib is now the default for all
-% formats}
-% \changes{v1.19}{2016/07/28}{Include 'Abstract', 'Acknowledgements',
-% and 'References' in PDF bookmarks (Matthew Fluet)}
-% \changes{v1.20}{2016/08/06}{Bug fixes for bst}
-% \changes{v1.22}{2016/09/25}{More bibliography changes for Aptara}
-% \changes{v1.23}{2016/11/04}{Add PACMPL journal option}
-% \changes{v1.26}{2016/12/24}{Corrected \cs{shortcite} bug}
-% \changes{v1.26}{2016/12/24}{Documentation typos fixed (thanks to
-% Stephen Spencer)}
-% \changes{v1.30}{2017/02/04}{Bibtex style now recognizes https:// in
-% doi}
-% \changes{v1.31}{2017/03/04}{Documentation changes}
-% \changes{v1.32}{2017/03/07}{Format siggraph is now obsolete}
-% \changes{v1.32}{2017/03/07}{Added POMACS journal option}
-% \changes{v1.33}{2017/03/12}{BibTeX crossref bug corrected}
-% \changes{v1.33}{2017/03/18}{BibTeX comma before articleno bug
-% corrected}
-% \changes{v1.33}{2017/03/18}{BibTeX numpages bug corrected}
-% \changes{v1.33}{2017/03/28}{Added acmart-preload-hook}
-% \changes{v1.33}{2017/03/33}{Documentation updates}
-% \changes{v1.35}{2017/04/23}{BibTeX bug fixed: et al.}
-% \changes{v1.36}{2017/05/12}{Added the possibility to adjust number of
-% author boxes per row in conference formats}
-% \changes{v1.37}{2017/05/13}{Set \cs{normalparindent}; Reduce list
-% indentation (Matthew Fluet)}%
-% \changes{v1.38}{2017/05/13}{Increase default font size for SIGPLAN}
-% \changes{v1.40}{2017/05/27}{Bibliography changes}
-% \changes{v1.40}{2017/06/15}{Added package cleveref}
-% \changes{v1.40}{2017/06/16}{Added new copyright version:
-% licensedcagov}
-% \changes{v1.41}{2017/06/25}{Added new badges}
-% \changes{v1.42}{2017/07/02}{Deleted ACM badges}
-% \changes{v1.44}{2017/07/30}{Added package refcount}
-% \changes{v1.44}{2017/07/30}{Deleted package cleveref}
-% \changes{v1.44}{2017/07/30}{Put theorem defs in a separate style}
-% \changes{v1.46}{2017/08/17}{Bst file bug fixes: label width is
-% calculated correctly}
-% \changes{v1.46}{2017/08/25}{Added etoolbox}
-% \changes{v1.46}{2017/08/29}{Restore theorem defs to class file}
-% \changes{v1.47}{2017/08/31}{New journal: THRI}
-% \changes{v1.48}{2017/09/09}{Typos fixed (Jamie Davis)}
-% \changes{v1.48}{2017/09/16}{Code prettying (Michael D.~Adams)}
-% \changes{v1.48}{2017/09/23}{Misc entries in the bibliography no
-% longer produce a separate date}
-% \changes{v1.48}{2017/10/01}{Initial support for Biblatex (Daniel Thomas)}
-% \changes{1.48}{2017/10/14}{Bib code cleanup (Zack Weinberg)}
-% \changes{1.48}{2017/12/03}{Documentation update (siggraph)}
-% \changes{1.49}{2018/01/24}{New journal:  DTRAP}
-% \changes{1.53}{2018/04/14}{New journals: PACMCGIT, TIOT, TDSCI}
-% \changes{1.53}{2018/04/14}{Rearranged docs}
-% \changes{1.54}{2018/06/17}{Moved footnote stuff before hyperref call
-% (Ross Moore)}
-% \changes{1.56}{2018/11/11}{Documented \cs{Description}}
-% \changes{1.57}{2018/12/16}{Booktabs package is now the default}
-% \changes{1.58}{2019/02/09}{Changes in samples (Enrico Gregorio)}
-% \changes{1.58}{2019/03/29}{New journal: HEALTH.  TDS is renamed to
-% TDSCI}
-% \changes{1.60}{2019/04/22}{New option: urlbreakonhyphens}
-% \changes{1.62}{2019/07/31}{New journal: TELO}
-% \changes{1.63}{2019/08/04}{New journal: TQUANT}
-% \changes{1.63}{2019/08/04}{New journal: FACMP}
-% \changes{1.63a}{2019/08/05}{Move: TQUANT to TQC}
-% \changes{1.64}{2019/08/17}{Putting abstract after \cs{maketitle} now
-% causes an error}
-% \changes{1.65}{2019/10/19}{New journal: DGOV}
-% \changes{1.66}{2019/12/18}{ACM reference format is now mandatory for
-% papers over one page;  CCS concepts and keywords are now mandatory for
-% papers over two pages}
-% \changes{1.66}{2019/12/18}{Authors' addresses are mandatory for
-% journal articles}
-% \changes{1.71}{2020/05/01}{Retired sigchi and sigchi-a}
-% \changes{1.71}{2020/05/02}{Bibliography change: volume for
-% @inproceedings is now in brackets together with series}
-% \changes{1.71}{2020/05/02}{LuaTeX now uses the OTF versions of
-% fonts}
-% \changes{1.75}{2020/10/29}{Documentation update}
-% \changes{1.78}{2021/05/01}{Documentation update: Word count}
-% \changes{1.84}{2022/04/09}{New journals: JDS, GAMES}
-% \changes{1.85}{2022/05/08}{Added CC licenses}
-% \changes{1.87}{2022/08/02}{New format: |acmcp|}
-% \changes{1.90a}{2023/06/11}{Changes in the sample keywords and concepts}
-% \changes{1.92}{2023/09/30}{Documentation update: use of `anonymous'
-% throughout} 
-% \changes{v1.93}{2023/10/22}{Added PACMSE journal option}
-% \changes{v2.01}{2024/01/06}{Documentation update: POMACS uses acmsmall}
-% \changes{v2.03}{2024/02/04}{Added documentation about samples}
-% \changes{v2.17}{2025/11/01}{Rearranged documentation}
+% \changes{v2.17}{2026/02/04}{Based on acmart v2.17}
 % 
 % And the driver code:
 %    \begin{macrocode}
@@ -2496,12 +2373,11 @@
 \RecordChanges
 \EnableCrossrefs
 \begin{document}
-  \DocInput{acmart.dtx}
+  \DocInput{jfp-epi.dtx}
 \end{document}
 %</gobble>
 %<*class>
-%<!tagged>\def\@classname{acmart}
-%<tagged>\def\@classname{acmart-tagged}
+\def\@classname{jfp-epi}
 %    \end{macrocode}
 %
 %
