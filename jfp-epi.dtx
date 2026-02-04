@@ -2378,6 +2378,7 @@
 %</gobble>
 %<*class>
 \def\@classname{jfp-epi}
+\newif\ifjfp \jfptrue % to comment out non-JFP logic
 %    \end{macrocode}
 %
 %
@@ -2418,6 +2419,13 @@
 % \changes{1.87}{2022/08/13}{New format: acmcp}
 %   The possible formats
 %    \begin{macrocode}
+\ifjfp
+\define@choicekey*+{\@classname.cls}{format}[\ACM@format\ACM@format@nr]{%
+  jfp}[jfp]{}{%
+  \ClassError{\@classname}{The option format must be jfp}}
+\def\@DeclareACMFormat#1{\DeclareOptionX{#1}{\setkeys{\@classname.cls}{format=#1}}}
+\@DeclareACMFormat{jfp}
+\else
 \define@choicekey*+{\@classname.cls}{format}[\ACM@format\ACM@format@nr]{%
   manuscript, acmsmall, acmlarge, acmtog, sigconf, siggraph,
   sigplan, sigchi, sigchi-a, acmengage, acmcp}[manuscript]{}{%
@@ -2436,6 +2444,7 @@
 \@DeclareACMFormat{sigchi-a}
 \@DeclareACMFormat{acmengage}
 \@DeclareACMFormat{acmcp}
+\fi
 \ExecuteOptionsX{format}
 %    \end{macrocode}
 %
@@ -2785,12 +2794,19 @@
   authors to publish their articles using the SIGCONF\MessageBreak
   template call.}
 \fi
+\ifjfp
+\@ACM@manuscriptfalse
+\else
 \ifnum\ACM@format@nr=0\relax
   \@ACM@manuscripttrue
 \else
   \@ACM@manuscriptfalse
 \fi
+\fi
 \@ACM@sigchiamodefalse
+\ifjfp
+\@ACM@journaltrue
+\else
 \ifcase\ACM@format@nr
 \relax % manuscript
   \@ACM@journaltrue
@@ -2819,6 +2835,7 @@
   \@ACM@journaltrue
   \@ACM@acmcptrue
   \AtBeginDocument{\@ACM@printacmreffalse}%
+\fi
 \fi
 \if@ACM@journal
   \@ACM@journal@bibstriptrue
@@ -2876,6 +2893,9 @@
 %
 % At this point we either have \cs{ACM@fontsize} or use defaults
 %    \begin{macrocode}
+\ifjfp
+\def\ACM@fontsize{10pt}%
+\else
 \ifx\ACM@fontsize\@empty
   \ifcase\ACM@format@nr
   \relax % manuscript
@@ -2901,6 +2921,7 @@
   \or % acmcp  
     \def\ACM@fontsize{9pt}%
   \fi
+\fi
 \fi
 \ClassInfo{\@classname}{Using fontsize \ACM@fontsize}
 \LoadClass[\ACM@fontsize, reqno]{amsart}
@@ -3523,6 +3544,7 @@
   \def\footnotemark{}%
 }
 \urlstyle{rm}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -3537,6 +3559,7 @@
   \urlstyle{sf}
 \or % acmengage
 \or % acmcp  
+\fi
 \fi
 \AtEndPreamble{%
   \if@ACM@urlbreakonhyphens
@@ -3662,6 +3685,14 @@
 % See \url{https://github.com/borisveytsman/acmart/issues/5#issuecomment-272881329}.
 %    \begin{macrocode}
 \RequirePackage{geometry}
+\ifjfp
+   \geometry{twoside=true,
+     includeheadfoot, head=13pt, foot=2pc,
+     paperwidth=176mm, paperheight=250mm, % B5 paper
+     top=10mm, bottom=10mm, inner=24mm, outer=24mm,
+     marginparwidth=2pc,heightrounded
+   }%
+\else
 \ifcase\ACM@format@nr
 \relax % manuscript
    \geometry{letterpaper,head=13pt,
@@ -3739,6 +3770,7 @@
      marginparwidth=2pc,heightrounded
    }%
 \fi
+\fi
 %    \end{macrocode}
 %
 %
@@ -3749,6 +3781,7 @@
 %    \begin{macrocode}
 \setlength\parindent{10\p@}
 \setlength\parskip{\z@}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -3762,6 +3795,7 @@
 \or % sigchi-a
 \or % acmengage
 \or % acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -3853,6 +3887,9 @@
 % In two-column layouts, force both columns to be the same height by inserting
 % extra internal vertical space to fill out the page.
 %    \begin{macrocode}
+\ifjfp
+\flushbottom
+\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -3872,6 +3909,7 @@
   \flushbottom
 \or % acmcp
   \flushbottom
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -4104,6 +4142,7 @@
 \else
   \captionsetup{labelfont={bf},
     textfont={bf}, labelsep=colon, margin=\z@}
+\ifjfp\else
   \ifcase\ACM@format@nr
   \relax % manuscript
   \or % acmsmall
@@ -4128,6 +4167,7 @@
   \or % acmengage
   \or % acmcp
   \fi
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -4263,6 +4303,7 @@
 %\label{sec:lists}
 %
 %    \begin{macrocode}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -4279,6 +4320,7 @@
 \or % sigchi-a
 \or % acmengage
 \or % acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -6622,6 +6664,9 @@
 \def\@specialsection#1{%
   \let\@vspace\@vspace@orig
   \let\@vspacer\@vspacer@orig
+\ifjfp
+    \par\medskip\small\noindent#1: %
+\else
   \ifcase\ACM@format@nr
   \relax % manuscript
     \par\medskip\small\noindent#1: %
@@ -6646,6 +6691,7 @@
   \or % acmcp
     \section*{#1}%
     \fi
+\fi
   \let\@vspace\@vspace@acm
   \let\@vspacer\@vspacer@acm
 }
@@ -6687,6 +6733,9 @@
   \fi
   \thispagestyle{firstpagestyle}%
   \noindent
+\ifjfp
+    \box\mktitle@bx\par
+\else
   \ifcase\ACM@format@nr
   \relax % manuscript
     \box\mktitle@bx\par
@@ -6711,6 +6760,7 @@
   \or % acmcp
      \box\mktitle@bx\par  
   \fi
+\fi
 }
 %    \end{macrocode}
 %
@@ -6720,6 +6770,9 @@
 % \changes{1.85}{2022/05/08}{Added: acmengage}
 % The title of the article
 %    \begin{macrocode}
+\ifjfp
+\def\@mktitle{\@mktitle@i}
+\else
 \def\@mktitle{%
   \ifcase\ACM@format@nr
   \relax % manuscript
@@ -6746,6 +6799,7 @@
     \@mktitle@i
   \fi
 }
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -6757,6 +6811,9 @@
 % \changes{1.85}{2022/05/08}{Added: acmengage}
 % The font to typeset the title
 %    \begin{macrocode}
+\ifjfp
+\def\@titlefont{\huge\rmfamily\mdseries\itshape}
+\else
 \def\@titlefont{%
   \ifcase\ACM@format@nr
   \relax % manuscript
@@ -6782,6 +6839,7 @@
   \or % acmcp
     \LARGE\sffamily\bfseries
   \fi}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -6792,6 +6850,9 @@
 % \changes{1.85}{2022/05/08}{Added: acmengage}
 % The font to typeset the subtitle
 %    \begin{macrocode}
+\ifjfp
+\def\@subtitlefont{\Large\itshape\mdseries}
+\else
 \def\@subtitlefont{\normalsize
   \ifcase\ACM@format@nr
   \relax % manuscript
@@ -6817,6 +6878,7 @@
   \or % acmcp
     \mdseries
   \fi}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -7008,6 +7070,12 @@
 % \changes{1.85}{2022/05/08}{Added: acmengage}
 % Typesetting the authors
 %    \begin{macrocode}
+\ifjfp
+\def\@mkauthors{\begingroup
+  \hsize=\textwidth
+    \@mkauthors@i
+  \endgroup}
+\else
 \def\@mkauthors{\begingroup
   \hsize=\textwidth
   \ifcase\ACM@format@nr
@@ -7036,6 +7104,7 @@
   \fi
   \endgroup
 }
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -7059,6 +7128,10 @@
 % \changes{v1.13}{2016/06/06}{Font adjustments for acmsmall}
 % Adjusting fonts for different formats
 %    \begin{macrocode}
+\ifjfp
+  \def\@authorfont{\normalsize\rmfamily}
+  \def\@affiliationfont{\small\itshape}
+\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -7089,6 +7162,7 @@
 \or % acmcp
   \def\@authorfont{\large\sffamily}
   \def\@affiliationfont{\small\normalfont}
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -7760,6 +7834,7 @@
 %    \begin{macrocode}
 \def\ACM@linecountR{%
   \if@ACM@review
+\ifjfp\else
     \ifcase\ACM@format@nr
     \relax % manuscript
          \relax
@@ -7784,6 +7859,7 @@
        \or % acmcp
          \relax
     \fi
+\fi
     \begin{picture}(0,0)%
       \put(20,-22){\usebox{\ACM@linecount@bx}}%
      \end{picture}%
@@ -7883,6 +7959,16 @@
     \fi%
   }%
   \if@ACM@journal@bibstrip@or@tog
+\ifjfp
+      \fancyhead[LE]{\ACM@linecountL\@headfootfont\@acmArticlePage}%
+      \fancyhead[RO]{\@headfootfont\@acmArticlePage}%
+      \fancyhead[RE]{\@headfootfont\@shortauthors}%
+      \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
+      \if@ACM@nonacm\else%
+        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
+        \@acmNumber, Article \@acmArticle.  Publication date: \@acmPubDate.}%
+      \fi
+\else
     \ifcase\ACM@format@nr
     \relax % manuscript
       \fancyhead[LE]{\ACM@linecountL\if@ACM@printfolios\thepage\fi}%
@@ -7952,6 +8038,7 @@
          \fi
       \fi
     \fi
+\fi 
   \else % Proceedings
     \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
     \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
@@ -8050,6 +8137,17 @@
   \renewcommand{\headrulewidth}{\z@}%
   \renewcommand{\footrulewidth}{\z@}%
   \if@ACM@journal@bibstrip@or@tog
+\ifjfp
+      \if@ACM@nonacm\else%
+        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
+        \@acmNumber, Article \@acmArticle.  Publication date:
+        \@acmPubDate.}%
+      \fi%
+      \fancyhead[LE]{\ACM@linecountL\@acmBadgeL}%
+      \fancyhead[LO]{\ACM@linecountL\@acmBadgeL}%
+      \fancyhead[RO]{\@acmBadgeR}%
+      \fancyhead[RE]{\@acmBadgeR}%
+\else
     \ifcase\ACM@format@nr
     \relax % manuscript
       \fancyhead[L]{\ACM@linecountL\@acmBadgeL}%
@@ -8096,12 +8194,14 @@
       \fancyhead[R]{\@acmBadgeR\ACM@linecountR}%
       \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
     \fi
+\fi
   \else
     \fancyhead[L]{\ACM@linecountL\@acmBadgeL}%
     \fancyhead[R]{\@acmBadgeR\ACM@linecountR}%
     \fancyfoot[C]{\if@ACM@printfolios\footnotesize\thepage\fi}%
   \fi
   \if@ACM@timestamp
+\ifjfp\else
     \ifnum\ACM@format@nr=0\relax % Manuscript
     \fancyfoot[LO,RE]{\ACM@timestamp\quad
       \if@ACM@nonacm\else
@@ -8110,6 +8210,7 @@
     \else
     \fancyfoot[LO,RE]{\ACM@timestamp}
     \fi
+\fi
   \fi
   \if@ACM@acmcp
   \renewcommand{\footrulewidth}{0.1\p@}%
@@ -8281,6 +8382,10 @@
 \def\@subsubsecfont{\sffamily\itshape}
 \def\@parfont{\itshape}
 \setcounter{secnumdepth}{3}
+\ifjfp
+ \def\@secfont{\sffamily\large\section@raggedright}
+ \def\@subsecfont{\sffamily\large\section@raggedright}
+\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -8314,6 +8419,7 @@
  \def\@secfont{\bfseries\Large\section@raggedright}
  \def\@subsecfont{\bfseries\Large\section@raggedright}
 \or %acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -8420,6 +8526,7 @@
 %
 % Customization of the |acmplain| theorem style:
 %    \begin{macrocode}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -8436,6 +8543,7 @@
 \or % sigchi-a
 \or % acmengage
 \or % acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -8492,6 +8600,7 @@
 %
 % Customization of the |acmdefinition| theorem style:
 %    \begin{macrocode}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -8508,6 +8617,7 @@
 \or % sigchi-a
 \or % acmengage
 \or % acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -8594,6 +8704,7 @@
 %
 % Customization of the proof environment.
 %    \begin{macrocode}
+\ifjfp\else
 \ifcase\ACM@format@nr
 \relax % manuscript
 \or % acmsmall
@@ -8608,6 +8719,7 @@
 \or % sigchi-a
 \or % acmengage
 \or % acmcp
+\fi
 \fi
 %    \end{macrocode}
 %
@@ -8639,6 +8751,7 @@
 \AtEndPreamble{%
   \if@ACM@pbalance
     \global\@ACM@balancefalse
+\ifjfp\else
     \ifcase\ACM@format@nr
     \relax % manuscript
        \or % acmsmall
@@ -8658,8 +8771,12 @@
           \RequirePackage{pbalance}%
        \or % acmcp
     \fi
+\fi
   \fi
   \if@ACM@balance
+\ifjfp
+         \global\@ACM@balancefalse
+\else
     \ifcase\ACM@format@nr
     \relax % manuscript
          \global\@ACM@balancefalse
@@ -8684,6 +8801,7 @@
        \or % acmcp
          \global\@ACM@balancefalse
     \fi
+\fi
   \fi
 }
 \AtEndDocument{%
