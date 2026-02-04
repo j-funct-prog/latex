@@ -4542,6 +4542,7 @@
 % information
 %    \begin{macrocode}
 \define@choicekey*+{ACM}{acmJournal}[\@journalCode\@journalCode@nr]{%
+JFP,
   ACMJCSS,%
   ACMJDS,%
   AILET,%
@@ -4621,7 +4622,12 @@
   FACMP%
 }{%
 \ifcase\@journalCode@nr
-\relax % ACMJCSS
+\relax % JFP
+  \def\@journalName{Journal of Functional Programming}%
+  \def\@journalNameShort{JFP}%
+  \def\@permissionCodeOne{0956-7968}%
+  \def\@permissionCodeTwo{1469-7653}%
+\or % ACMJCSS
   \def\@journalName{ACM Journal on Computing and Sustainable Societies}%
   \def\@journalNameShort{ACM J. Comput. Sustain. Soc.}%
   \def\@permissionCodeOne{2834-5533}%
@@ -5035,10 +5041,10 @@
 % \changes{v2.04}{2024/03/17}{eISSN is printed, rather than pSSN}
 %    \begin{macrocode}
 \def\@journalCode@nr{0}
-\def\@journalName{}%
-\def\@journalNameShort{\@journalName}%
-\def\@permissionCodeOne{XXXX-XXXX}%
-\def\@permissionCodeTwo{\@permissionCodeOne}%
+\def\@journalName{Journal of Functional Programming}%
+\def\@journalNameShort{JFP}%
+\def\@permissionCodeOne{0956-7968}%
+\def\@permissionCodeTwo{1469-7653}%
 %    \end{macrocode}
 %
 %
@@ -6352,6 +6358,9 @@
      ~\IfEq{\ACM@cc@version}{4.0}{4.0 International}{3.0 Unported}%
    }
    License.}%
+\iffalse % not used
+\par \@journalNameShort, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.
+\fi
  \fi}
 %    \end{macrocode}
 %
@@ -6572,8 +6581,10 @@
     \ifx\@empty\@authorsaddresses\else
        \if@ACM@anonymous\else
          \if@ACM@journal@bibstrip@or@tog
+\ifjfp\else
            \footnotetextauthorsaddresses{%
              \def\par{\let\par\@par}\parindent\z@\@setauthorsaddresses}%
+\fi
          \fi
        \fi
     \fi
@@ -7768,7 +7779,11 @@
     % explicitly sets \settopmatter{printacmref=true}.
     \if@ACM@journal@bibstrip
        \textit{\@journalNameShort}
-       \@acmVolume, \@acmNumber \@article@string (\@acmPubDate),
+       \@acmVolume
+\ifjfp\else
+       , \@acmNumber 
+\fi
+       \@article@string (\@acmPubDate),
        \ref{TotPages}~\@pages@word.
     \else
        In \textit{\@acmBooktitle}%
@@ -8007,7 +8022,11 @@
 % \changes{v1.60}{2019/04/22}{Moved to footnotesize}
 %   The font to typeset header and footer text.
 %    \begin{macrocode}
+\ifjfp
+\def\@headfootfont{\itshape\footnotesize}
+\else
 \def\@headfootfont{\sffamily\footnotesize}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -8042,6 +8061,11 @@
   \fancyhf{}%
   \renewcommand{\headrulewidth}{\z@}%
   \renewcommand{\footrulewidth}{\z@}%
+\ifjfp
+  \def\@acmArticlePage{%
+      \if@ACM@printfolios\thepage\fi%
+  }%
+\else
   \def\@acmArticlePage{%
     \ifx\@acmArticle\empty%
       \if@ACM@printfolios\thepage\fi%
@@ -8049,16 +8073,13 @@
       \@acmArticle\if@ACM@printfolios:\thepage\fi%
     \fi%
   }%
+\fi
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
       \fancyhead[LE]{\ACM@linecountL\@headfootfont\@acmArticlePage}%
       \fancyhead[RO]{\@headfootfont\@acmArticlePage}%
       \fancyhead[RE]{\@headfootfont\@shortauthors}%
       \fancyhead[LO]{\ACM@linecountL\@headfootfont\shorttitle}%
-      \if@ACM@nonacm\else%
-        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
-        \@acmNumber, Article \@acmArticle.  Publication date: \@acmPubDate.}%
-      \fi
 \else
     \ifcase\ACM@format@nr
     \relax % manuscript
@@ -8229,15 +8250,8 @@
   \renewcommand{\footrulewidth}{\z@}%
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
-      \if@ACM@nonacm\else%
-        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
-        \@acmNumber, Article \@acmArticle.  Publication date:
-        \@acmPubDate.}%
-      \fi%
-      \fancyhead[LE]{\ACM@linecountL\@acmBadgeL}%
-      \fancyhead[LO]{\ACM@linecountL\@acmBadgeL}%
-      \fancyhead[RO]{\@acmBadgeR}%
-      \fancyhead[RE]{\@acmBadgeR}%
+      \fancyhead[LO]{\@headfootfont 
+        \@journalNameShort, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.}
 \else
     \ifcase\ACM@format@nr
     \relax % manuscript
