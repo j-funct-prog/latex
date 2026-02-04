@@ -25,12 +25,12 @@ PDF = $(PACKAGE).pdf
 	do pdflatex $<; done
 
 
-# acmguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
-# 	pdflatex -jobname acmguide $(PACKAGE).dtx
-# 	- bibtex acmguide
-# 	pdflatex -jobname acmguide $(PACKAGE).dtx
-# 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' acmguide.log) \
-# 	do pdflatex -jobname acmguide $(PACKAGE).dtx; done
+jfpguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
+	pdflatex -jobname jfpguide $(PACKAGE).dtx
+# 	- bibtex jfpguide
+# 	pdflatex -jobname jfpguide $(PACKAGE).dtx
+	while ( grep -q '^LaTeX Warning: Label(s) may have changed' jfpguide.log) \
+	do pdflatex -jobname jfpguide $(PACKAGE).dtx; done
 
 %.cls:   %.ins %.dtx
 	pdflatex $<

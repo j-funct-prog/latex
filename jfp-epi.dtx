@@ -51,21 +51,65 @@
 %
 % \ifx\currentjob\guide\OnlyDescription\fi
 % \GetFileInfo{jfp-epi.dtx}
-% \title{\LaTeX{} Class for the \emph{Journal of Functional Programming}}
+% \title{\LaTeX{} Class for the \\ \emph{Journal of Functional Programming}}
 % \author{Jeremy Gibbons, after Boris Veytsman}
 % \date{\filedate, \fileversion}
 % \maketitle
 % \begin{abstract}
 %   This package provides a class for typesetting 
 %   articles in the Journal of Functional Programming.
+%   It is based on Boris Veytsman's \texttt{acmart.cls}.
 % \end{abstract}
-% \tableofcontents
-%
-% \clearpage
 %
 %\section{Introduction}
 %\label{sec:intro}
 %
+% The \textit{Journal of Functional Programming} (JFP) was published
+% by Cambridge University Press from its founding in 1991 until the
+% end of 2025. At that point CUP ceased publication of the journal,
+% and transferred ownership of the title to the UK charity
+% \textit{Journal of Functional Programming} (Charity Number 1215989),
+% via a brief tenure under the \textit{Foundation Mathematics in Open
+% Access} (MathOA), published on the \textit{Episciences} platform.
+%
+% From January 2026, JFP is using this new \LaTeX{} document class
+% \texttt{jfp-epi.cls}. The class is a thin skin over Boris Veytsman's
+% \texttt{acmart.cls}, written for ACM publications, but mimicking the
+% layout that JFP had under CUP. In particular, this approach is
+% intended to simplify the task of revising a paper originally
+% published in PACMPL and presented at a conference such as ICFP into
+% an extended version for JFP.
+%
+% The interface for \texttt{jfp-epi.cls} is almost identical to that
+% of \texttt{acmart.cls}; so the main source of documentation for
+% \texttt{jfp-epi} is the documentation file \texttt{acmguide.pdf}
+% that comes with \texttt{acmart.cls}. Except where noted here,
+% features of \texttt{acmart} are expected also to work for
+% \texttt{jfp-epi}. The purpose of this short document is to explain
+% the differences. It also explains explicitly how to take an existing
+% article written for \texttt{acmart} and revise it for JFP, and how
+% to adapt an article written for CUP's \texttt{jfp.cls} for
+% publication in JFP at Episciences.
+%
+%
+% \section{Creating a document from scratch}
+%
+% You should use the document class \texttt{jfp-epi.cls}. In contrast
+% to \texttt{acmart.cls}, there is only one article type, namely
+% \texttt{jfp}; so you could start your document as follows:
+% \begin{verbatim}
+% \documentclass[jfp]{jfp-epi}
+% \end{verbatim}
+% Of course, the sole available article type is also the default, so this option can be omitted:
+% \begin{verbatim}
+% \documentclass{jfp-epi}
+% \end{verbatim}
+
+% \section{Adapting a document written using \texttt{acmart}}
+%
+% \section{Adapting a document written using CUP's class}
+%
+% \iffalse 
 % The Association for Computing
 % Machinery\footnote{\url{http://www.acm.org/}} is the world's largest
 % educational and scientific computing society, which delivers
@@ -2328,7 +2372,7 @@
 % \url{https://github.com/borisveytsman/acmart/issues} will be
 % appreciated.  
 % 
-%
+% \fi 
 %
 % \StopEventually{
 % \clearpage
@@ -2353,7 +2397,7 @@
 \ProvidesFile{jfp-epi.dtx}
 %</gobble>
 %<class>\ProvidesClass{jfp-epi}
-[2025/11/01 v2.17 Typesetting articles for the Journal of Functional Programming]
+[2026/02/04 v2.17 Typesetting articles for the Journal of Functional Programming]
 %    \end{macrocode}
 %
 % \changes{v2.17}{2026/02/04}{Based on acmart v2.17}
