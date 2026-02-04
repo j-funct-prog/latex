@@ -3990,7 +3990,11 @@
 %   Whether we load the new fonts
 %    \begin{macrocode}
 \newif\if@ACM@newfonts
+\ifjfp
+\@ACM@newfontsfalse
+\else
 \@ACM@newfontstrue
+\fi
 \IfFileExists{libertine.sty}{}{\ClassWarning{\@classname}{You do not
     have the libertine package installed.  Please upgrade your
     TeX}\@ACM@newfontsfalse}
@@ -4044,6 +4048,9 @@
        \RequirePackage[libertine]{newtxmath}
     \fi
   \fi
+\else
+  \RequirePackage{newtxtext,newtxmath} % use Times Roman instead
+  \renewcommand{\baselinestretch}{1.1}
 \fi
 %    \end{macrocode}
 %
@@ -9006,10 +9013,12 @@
 % We produce an error if the user tries to change \cs{baselinestretch}
 %    \begin{macrocode}
 \let\ACM@origbaselinestretch\baselinestretch
+\ifjfp\else
 \AtEndDocument{\ifx\baselinestretch\ACM@origbaselinestretch\else
   \ClassError{\@classname}{An attempt to redefine
     \string\baselinestretch\space detected.  Please do not do this for
     ACM submissions!}\fi}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
