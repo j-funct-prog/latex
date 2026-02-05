@@ -116,6 +116,24 @@
 % \end{verbatim}
 % or omit them.
 %
+% The author names and affiliations are set in almost the same way as
+% with \texttt{acmart.cls}. The only difference is that the email
+% address should be specified as part of the affiliation, not
+% separately; it should come after the address. And it should use the
+% \texttt{\string\authoremail} macro instead of
+% \texttt{\string\email}. For example:
+% \begin{verbatim}
+% \author{Ben Trovato}
+% \orcid{1234-5678-9012}
+% \affiliation{%
+%   \institution{Institute for Clarity in Documentation}
+%   \city{Dublin}
+%   \state{Ohio}
+%   \country{USA}
+%   \authoremail{trovato@corporation.com}
+% }
+% \end{verbatim}
+%
 % \subsection{Special article types}
 %
 % JFP has a number of special article types in addition to standard
@@ -6884,7 +6902,7 @@ JFP,
 % The title of the article
 %    \begin{macrocode}
 \ifjfp
-\def\@mktitle{\@mktitle@i}
+\def\@mktitle{\@mktitle@jfp}
 \else
 \def\@mktitle{%
   \ifcase\ACM@format@nr
@@ -6994,6 +7012,30 @@ JFP,
 \fi
 %    \end{macrocode}
 %
+% \end{macro}
+%
+% \begin{macro}{\@mktitle@jfp}
+%   The version of \cs{mktitle} for JFP
+%    \begin{macrocode}
+\def\@mktitle@jfp{% based on \mktitle@i
+  \hsize=\textwidth
+%  \if@ACM@acmcp
+%    \advance\hsize by -6pc%
+%  \fi
+  \@ACM@title@width=\hsize
+  \setbox\mktitle@bx=\vbox{\noindent
+     \parbox[t]{\@ACM@title@width}{\centering % \raggedright
+\def\@jfp@article@type@font{\rmfamily\mdseries\upshape\Large}
+\ifx\@jfp@article@type@banner\@empty\else
+  \@jfp@article@type@font \@jfp@article@type@banner\bigskip\par
+\fi
+      \@titlefont\noindent
+      \@title\@translatedtitle%
+  \ifx\@subtitle\@empty\else
+    \par\noindent{\@subtitlefont\@subtitle\@translatedsubtitle}%
+  \fi}%
+  \par\vskip2\bigskipamount}}%
+%    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@mktitle@i}
@@ -7146,6 +7188,9 @@ JFP,
   authors' postal addresses.  I am ignoring your postal
   code}\unskip\ignorespaces} 
 \if@ACM@journal
+\ifjfp
+  \def\authoremail#1{\par(email: #1)\ignorespaces} % jfp
+\fi
   \def\position#1{\unskip\ignorespaces}
   \def\institution#1{\global\@ACM@instpresenttrue
     \unskip~#1\ignorespaces}
@@ -7186,7 +7231,7 @@ JFP,
 \ifjfp
 \def\@mkauthors{\begingroup
   \hsize=\textwidth
-    \@mkauthors@i
+    \@mkauthors@jfp
   \endgroup}
 \else
 \def\@mkauthors{\begingroup
@@ -7289,7 +7334,11 @@ JFP,
   \@currentauthors\def\@currentauthors{}%
   \ifx\@currentaffiliations\@empty\else
     \andify\@currentaffiliations
+\ifjfp
+      \unskip\medskip\par\noindent{\@currentaffiliations}\bigskip\par % linebreak not comma between name and affiliation
+\else
       \unskip, {\@currentaffiliations}\par
+\fi
   \fi
   \def\@currentaffiliations{}}
 %    \end{macrocode}
@@ -7363,6 +7412,45 @@ JFP,
 %
 %
 %
+%
+% \begin{macro}{\@mkauthors@i}
+% Authors and affiliations for JFP
+%    \begin{macrocode}
+\def\@mkauthors@jfp{% based on \mkauthors@i
+  \def\@currentauthors{}%
+  \def\@currentaffiliations{}%
+  \global\let\and\@typeset@author@line
+  \def\@author##1{%
+    \ifx\@currentauthors\@empty
+      \gdef\@currentauthors{\@authorfont\MakeUppercase{##1}}%
+    \else
+       \g@addto@macro{\@currentauthors}{\and\MakeUppercase{##1}}%
+    \fi
+    \gdef\and{}}%
+  \def\email##1##2{}%
+  \def\affiliation##1##2{%
+    \def\@tempa{##2}\ifx\@tempa\@empty\else
+       \ifx\@currentaffiliations\@empty
+          \gdef\@currentaffiliations{%
+            \setkeys{@ACM@affiliation@}{obeypunctuation=false}%
+            \setkeys{@ACM@affiliation@}{##1}%
+            \@ACM@resetaffil
+            \@affiliationfont##2\@ACM@checkaffil}%
+       \else
+         \g@addto@macro{\@currentaffiliations}{\and
+           \setkeys{@ACM@affiliation@}{obeypunctuation=false}%
+           \setkeys{@ACM@affiliation@}{##1}\@ACM@resetaffil
+           ##2\@ACM@checkaffil}%
+      \fi
+    \fi
+     \global\let\and\@typeset@author@line}%
+  \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par\medskip
+    \centering % authors are centred, like title
+    \noindent\addresses\@typeset@author@line
+   \par\medskip}%
+}
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\@mkauthors@i}
 % \changes{v1.18}{2016/07/12}{Now we andify affiliations}
@@ -7728,12 +7816,22 @@ JFP,
 \def\@mkabstract{\bgroup
   \ifx\@abstract\@lempty\else
   {\phantomsection\addcontentsline{toc}{section}{\abstractname}%
+\ifjfp
+    \small
+    \bigskip \hrule \smallskip
+    \section*{\abstractname} \ignorespaces
+    % \quote % margins brought in
+    \@abstract\par
+    \bigskip \hrule \bigskip
+\else
     \if@ACM@journal
        \everypar{\setbox\z@\lastbox\everypar{}}\small
     \else
       \section*{\abstractname}%
     \fi
-   \ignorespaces\@abstract\par}%
+   \ignorespaces\@abstract\par
+\fi
+  }%
   \fi\egroup}
 %    \end{macrocode}
 %
