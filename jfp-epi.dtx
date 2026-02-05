@@ -3200,12 +3200,21 @@
 % \changes{v1.35}{2017/04/13}{Square brackets for author-year style}
 %   The default author-year format:
 %    \begin{macrocode}
+\ifjfp
+\newcommand{\bibstyle@acmauthoryear}{%
+  \setcitestyle{%
+    authoryear,%
+    open={(},close={)},citesep={;},%
+    aysep={},yysep={,},%
+    notesep={, }}}
+\else
 \newcommand{\bibstyle@acmauthoryear}{%
   \setcitestyle{%
     authoryear,%
     open={[},close={]},citesep={;},%
     aysep={},yysep={,},%
     notesep={, }}}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
