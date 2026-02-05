@@ -151,13 +151,13 @@
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
-% Suppose you had started with an ICFP submission, formatted using the
+% If you had written a paper for a SIGPLAN conference such as ICFP, formatted using the
 % document class declaration
 % \begin{verbatim}
 % \documentclass[acmsmall,screen]{acmart}
 % \end{verbatim}
 % as specified in the call for papers, and based on the template
-% \texttt{sample-acmsmall.tex} from ACM. The necessary changes to adapt
+% \texttt{sample-acmsmall.tex} provided by ACM, the necessary changes to adapt
 % the document for submission to JFP are:
 % \begin{itemize}
 % \item change the document class from \texttt{acmart} to \texttt{jfp-epi}
@@ -171,6 +171,38 @@
 % \end{itemize}
 %
 % \section{Adapting a document written using CUP's class}
+%
+% If you had written a paper for JFP using the CUP document class
+% \texttt{jfp.cls}, based on the template \texttt{jfpguide.tex} provided by
+% CUP, the necessary changes to adapt the document for the new JFP
+% publisher are:
+% \begin{itemize}
+% \item change the document class from \texttt{jfp} to \texttt{jfp-epi}
+% \item if the paper is a functional pearl, delete the optional
+% argument \texttt{[F]} from the \texttt{\string\maketitle}, and add
+% instead the \texttt{[pearl]} option to the
+% \texttt{\string\documentclass} (and similarly for theoretical pearls
+% and ``education matters'' papers)
+% \item manually edit the author information according to the new
+% interface---that is, like \texttt{acmart} except for email addresses
+% \item add the line
+% \begin{verbatim}
+% \usepackage{jfp-cup2epi}
+% \end{verbatim}
+% after the \texttt{\string\documentclass} line
+% \end{itemize}
+% The final step provides synonyms for some of the \texttt{acmart}
+% macros to match CUP expectations; as an alternative to using this
+% small package, you can make the changes manually:
+% \begin{itemize}
+% \item change \texttt{\string\journalTitle} to \texttt{\string\acmJournal}
+% \item change \texttt{\string\jnlDoiYr} to \texttt{\string\acmYear}
+% \item delete the \texttt{\string\cpr},
+%   \texttt{\string\doival},
+%   \texttt{\string\totalpg},
+%   \texttt{\string\lefttitle}, and
+%   \texttt{\string\righttitle} declarations
+% \end{itemize}
 %
 % Older versions of CUP's \texttt{jfp.cls} supported a
 % \texttt{\string\subtitle}, but the latest version did not. However,
