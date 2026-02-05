@@ -151,6 +151,25 @@
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
+% Suppose you had started with an ICFP submission, formatted using the
+% document class declaration
+% \begin{verbatim}
+% \documentclass[acmsmall,screen]{acmart}
+% \end{verbatim}
+% as specified in the call for papers, and based on the template
+% \texttt{sample-acmsmall.tex} from ACM. The necessary changes to adapt
+% the document for submission to JFP are:
+% \begin{itemize}
+% \item change the document class from \texttt{acmart} to \texttt{jfp-epi}
+% \item delete the optional argument \texttt{[acmsmall,screen]} from the document class
+% \item delete the \texttt{\string\setcopyright} declaration (the default is \texttt{cc})
+% \item delete the \texttt{\string\acmJournal} declaration (the default is \texttt{JFP})
+% \item modify the author email addresses: replace each \texttt{\string\email} outside an \texttt{\string\affiliation} with a corresponding \texttt{\string\authoremail} at the end of the \texttt{\string\affiliation}
+% \item delete the \texttt{CCSXML} environment
+% \item delete the \texttt{\string\ccsdesc} declarations
+% \item delete the \texttt{\string\keywords} declaration
+% \end{itemize}
+%
 % \section{Adapting a document written using CUP's class}
 %
 % Older versions of CUP's \texttt{jfp.cls} supported a
