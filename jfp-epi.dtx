@@ -7340,7 +7340,8 @@ JFP,
   \ifx\@currentaffiliations\@empty\else
     \andify\@currentaffiliations
 \ifjfp
-      \unskip\medskip\par\noindent{\@currentaffiliations}\bigskip\par % linebreak not comma between name and affiliation
+%       \unskip\medskip\par\noindent{\@currentaffiliations}\bigskip\par % linebreak not comma between name and affiliation
+      \unskip\smallskip\par\noindent{\@currentaffiliations}\medskip\par % linebreak not comma between name and affiliation; make more compact
 \else
       \unskip, {\@currentaffiliations}\par
 \fi
@@ -7449,7 +7450,8 @@ JFP,
       \fi
     \fi
      \global\let\and\@typeset@author@line}%
-  \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par\medskip
+  \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par%\medskip % don't need this skip
+    \renewcommand{\baselinestretch}{1} % authors set more compactly
     \centering % authors are centred, like title
     \noindent\addresses\@typeset@author@line
    \par\medskip}%
