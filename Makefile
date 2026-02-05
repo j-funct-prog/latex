@@ -51,7 +51,8 @@ distclean: clean
 
 distrib: all docclean
 	zip -r jfp-epi.zip  \
-	jfp-epi.cls jfp-cup2epi.sty ACM-Reference-Format.bst \
+	README-jfp.txt \
+	jfp-epi.cls ACM-Reference-Format.bst jfp-cup2epi.sty \
 	jfp-epi-guide.pdf \
 	jfptemplate.tex jfptemplate.pdf
 
