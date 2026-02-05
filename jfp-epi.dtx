@@ -8542,6 +8542,23 @@ JFP,
   {-.75\baselineskip \@plus -2\p@ \@minus -.2\p@}%
   {.25\baselineskip}%
   {\ACM@NRadjust\@subsecfont}}
+\ifjfp
+\renewcommand\subsubsection{\def\@toclevel{3}%
+  \@startsection{subsubsection}{3}{\z@}%
+  {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
+  {.25\baselineskip}% displayed, not run in
+  {\ACM@NRadjust\@subsubsecfont}}
+\renewcommand\paragraph{\def\@toclevel{4}%
+  \@startsection{paragraph}{4}{\z@}% not indented
+  {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
+  {-3.5\p@}%
+  {\ACM@NRadjust{\@parfont\@adddotafter}}}
+\renewcommand\subparagraph{\def\@toclevel{5}% not sure subparagraphs are a good idea...
+  \@startsection{subparagraph}{5}{\z@}%
+  {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
+  {-3.5\p@}%
+  {\ACM@NRadjust{\@parfont\@adddotafter}}}
+\else
 \renewcommand\subsubsection{\def\@toclevel{3}%
   \@startsection{subsubsection}{3}{\z@}%
   {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
@@ -8552,6 +8569,7 @@ JFP,
   {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
   {-3.5\p@}%
   {\ACM@NRadjust{\@parfont\@adddotafter}}}
+\fi
 \newcommand\noindentparagraph{\def\@toclevel{4}%
   \@startsection{paragraph}{4}{\z@}%
   {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
@@ -8597,8 +8615,10 @@ JFP,
 \def\@parfont{\itshape}
 \setcounter{secnumdepth}{3}
 \ifjfp
- \def\@secfont{\sffamily\large\section@raggedright}
- \def\@subsecfont{\sffamily\large\section@raggedright}
+ \def\section@centred{\centering} % jfp
+ \def\@secfont{\rmfamily\bfseries\section@centred}
+ \def\@subsecfont{\rmfamily\bfseries\section@centred}
+ \def\@subsubsecfont{\rmfamily\mdseries\itshape\section@centred}
 \else
 \ifcase\ACM@format@nr
 \relax % manuscript
