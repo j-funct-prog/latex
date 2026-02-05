@@ -7,19 +7,15 @@
 PACKAGE=jfp-epi
 
 
-# PDF = $(PACKAGE).pdf acmguide.pdf
 PDF = $(PACKAGE).pdf 
 
 
-# all:  ${PDF}
-#	cd samples && ${MAKE} $@
+all:  $(PACKAGE).dtx $(PACKAGE).ins $(PACKAGE).cls $(PACKAGE)-guide.pdf
 
 %.pdf:  %.dtx   $(PACKAGE).cls
 	pdflatex $<
 	- bibtex $*
 	pdflatex $<
-	- makeindex -s gind.ist -o $*.ind $*.idx
-	- makeindex -s gglo.ist -o $*.gls $*.glo
 	pdflatex $<
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
 	do pdflatex $<; done
@@ -27,22 +23,15 @@ PDF = $(PACKAGE).pdf
 
 jfp-epi-guide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
 	pdflatex -jobname jfp-epi-guide $(PACKAGE).dtx
-# 	- bibtex jfp-epi-guide
-# 	pdflatex -jobname jfp-epi-guide $(PACKAGE).dtx
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' jfp-epi-guide.log) \
 	do pdflatex -jobname jfp-epi-guide $(PACKAGE).dtx; done
 
 %.cls:   %.ins %.dtx
 	pdflatex $<
 
-# %-tagged.cls:   %.ins %.dtx
-# 	pdflatex $<
 
-
-
-
-# .PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls $(PACKAGE)-tagged.cls
 .PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls
+
 
 docclean:
 	$(RM)  *.log *.aux \
@@ -50,36 +39,19 @@ docclean:
 	*.ilg *.ind *.out *.lof \
 	*.lot *.bbl *.blg *.gls *.cut *.hd \
 	*.dvi *.ps *.thm *.tgz *.zip *.rpi
-	cd samples && ${MAKE} $@
 
 
 clean: docclean
-#	$(RM)  $(PACKAGE).cls $(PACKAGE)-tagged.cls 
 	$(RM)  $(PACKAGE).cls 
-#	cd samples && ${MAKE} $@
+
 
 distclean: clean
 	$(RM)  *.pdf 
-	cd samples && ${MAKE} $@
 
-#
-# Archive for the distribution. Includes typeset documentation
-#
-#archive:  all clean
-#	COPYFILE_DISABLE=1 tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude '*.tgz' --exclude '*.zip'  --exclude CVS --exclude '.git*' $(PACKAGE); mv ../$(PACKAGE).tgz .
 
-#zip:  all clean
-#	zip -r  $(PACKAGE).zip * -x '*~' -x '*.tgz' -x '*.zip' -x CVS -x 'CVS/*'
-
-# distros
-#distros: all docclean
-#	zip -r acm-distro.zip  \
-#	acmart.pdf acmguide.pdf samples *.cls ACM-Reference-Format.* \
-#	--exclude samples/sample-acmengage*
-#	zip -r acmengage-distro.zip samples/sample-acmengage* \
-#	samples/*.bib \
-#	acmart.pdf acmguide.pdf  *.cls ACM-Reference-Format.*
-
-#acmcp.zip: all acmart.cls
-#	zip $@ $+
+distrib: all docclean
+	zip -r jfp-epi.zip  \
+	jfp-epi.cls jfp-cup2epi.sty ACM-Reference-Format.bst \
+	jfp-epi-guide.pdf \
+	jfptemplate.tex jfptemplate.pdf
 
