@@ -105,8 +105,6 @@
 % \documentclass{jfp-epi}
 % \end{verbatim}
 %
-% \subsection{Top matter}
-%
 % There is a new journal name \texttt{JFP}, which is now the default;
 % also, a Creative Commons license is the default. So you can specify
 % these:
@@ -133,8 +131,6 @@
 %   \authoremail{trovato@corporation.com}
 % }
 % \end{verbatim}
-%
-% \subsection{Special article types}
 %
 % JFP has a number of special article types in addition to standard
 % research papers: functional pearls, theoretical pearls, and
@@ -8371,7 +8367,7 @@ JFP,
   \renewcommand{\footrulewidth}{\z@}%
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
-      \fancyhead[LO]{\@headfootfont 
+      \fancyhead[LO]{\ACM@linecountL\@headfootfont 
         \@journalNameShort, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.}
 \else
     \ifcase\ACM@format@nr
