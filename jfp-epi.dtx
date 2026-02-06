@@ -2508,9 +2508,13 @@
 %<*gobble>
 \documentclass{ltxdoc}
 \usepackage{array,booktabs,amsmath,graphicx,fancyvrb,tabularx, longtable}
+\iftrue
+\RequirePackage{newtxtext,newtxmath} % use Times Roman instead
+\else
 \usepackage[tt=false, type1=true]{libertine}
 \usepackage[varqu]{zi4}
 \usepackage[libertine]{newtxmath}
+\fi
 \usepackage[tableposition=top]{caption}
 \usepackage{hypdoc}
 \PageIndex
