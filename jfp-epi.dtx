@@ -109,7 +109,7 @@
 % also, a Creative Commons license is the default. So you can specify
 % these:
 % \begin{verbatim}
-% \acmJournal{JFP} % the default
+% \jfpJournal{JFP} % the default
 % \setcopyright{cc} % the default
 % \end{verbatim}
 % or omit them.
@@ -130,6 +130,15 @@
 %   \country{USA}
 %   \authoremail{trovato@corporation.com}
 % }
+% \end{verbatim}
+%
+% There are macros to set other standard metadata, defined as synonyms for similar macros in \texttt{acmart.cls}:
+% \begin{verbatim}
+% \jfpVolume{38}
+% \jfpArticle{3}
+% \jfpDOI{12345.67890}
+% \jfpYear{2026}
+% \jfpMonth{1}
 % \end{verbatim}
 %
 % JFP has a number of special article types in addition to standard
@@ -165,9 +174,6 @@
 % \item delete the \texttt{\string\setcopyright} declaration (the default is \texttt{cc})
 % \item delete the \texttt{\string\acmJournal} declaration (the default is \texttt{JFP})
 % \item modify the author email addresses: replace each \texttt{\string\email} outside an \texttt{\string\affiliation} with a corresponding \texttt{\string\authoremail} at the end of the \texttt{\string\affiliation}
-% \item delete the \texttt{CCSXML} environment
-% \item delete the \texttt{\string\ccsdesc} declarations
-% \item delete the \texttt{\string\keywords} declaration
 % \end{itemize}
 %
 % \section{Adapting a document written using CUP's class}
@@ -192,14 +198,14 @@
 % \end{verbatim}
 % after the \texttt{\string\documentclass} line
 % \end{itemize}
-% The final step provides synonyms for some of the \texttt{acmart}
+% The final step provides synonyms for some of the
 % macros to match CUP expectations; as an alternative to using this
 % small package, you can make the changes manually:
 % \begin{itemize}
-% \item change \texttt{\string\journalTitle} to \texttt{\string\acmJournal}
-% \item change \texttt{\string\jnlDoiYr} to \texttt{\string\acmYear}
+% \item change \texttt{\string\journalTitle} to \texttt{\string\jfpJournal}
+% \item change \texttt{\string\jnlDoiYr} to \texttt{\string\jfpYear}
+% \item change \texttt{\string\doival} to \texttt{\string\jfpDOI}
 % \item delete the \texttt{\string\cpr},
-%   \texttt{\string\doival},
 %   \texttt{\string\totalpg},
 %   \texttt{\string\lefttitle}, and
 %   \texttt{\string\righttitle} declarations
@@ -5786,7 +5792,11 @@ JFP,
 %   Keywords are mostly obsolete.  We use CCS now.  Still it makes
 %   sense to keep them for compatibility.
 %    \begin{macrocode}
+\ifjfp
+\def\keywords#1{}
+\else
 \def\keywords#1{\def\@keywords{#1}}
+\fi
 \let\@keywords\@empty
 %    \end{macrocode}
 %
@@ -6057,8 +6067,12 @@ JFP,
 %   The first argument is the significance, the second is the
 %   concept(s)
 %    \begin{macrocode}
+\ifjfp
+\newcommand\ccsdesc[2][100]{}
+\else
 \newcommand\ccsdesc[2][100]{%
   \ccsdesc@parse#1~#2~~\ccsdesc@parse@end}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -9337,6 +9351,43 @@ JFP,
     ACM submissions!}\fi}
 %    \end{macrocode}
 %
+% \end{macro}
+%
+% \begin{macro}{\jfpYear}
+% Synonym for \cs{\acmYear}
+%    \begin{macrocode}
+\let\jfpYear\acmYear
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\jfpJournal}
+% Synonym for \cs{\acmJournal}
+%    \begin{macrocode}
+\let\jfpJournal\acmJournal
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\jfpDOI}
+% Synonym for \cs{\acmDOI}
+%    \begin{macrocode}
+\let\jfpDOI\acmDOI
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\jfpVolume}
+% Synonym for \cs{\acmVolume}
+%    \begin{macrocode}
+\let\jfpVolume\acmVolume
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\jfpArticle}
+% Synonym for \cs{\acmArticle}
+%    \begin{macrocode}
+\let\jfpArticle\acmArticle
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\jfpMonth}
+% Synonym for \cs{\acmMonth}
+%    \begin{macrocode}
+\let\jfpMonth\acmMonth
+%    \end{macrocode}
 % \end{macro}
 %
 % \changes{v1.30}{2017/02/10}{Added \cs{frenchspacing}}
