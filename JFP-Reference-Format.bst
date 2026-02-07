@@ -1064,8 +1064,7 @@ FUNCTION { comma }
 
 FUNCTION { format.names }
 {
-  % Format bibliographical entries with the first author last name first,
-  % and subsequent authors with initials followed by last name.
+  % Format bibliographical entries with all authors last name first: better for sorting by author name.
   % All names are formatted in this routine.
 
   's :=
@@ -1077,7 +1076,7 @@ FUNCTION { format.names }
         %NO: BAD ORDER: {"{" s nameptr "{ff~}{ll}{, jj}{, vv}" format.name$ * "}" * 't := }
         %NO: BAD ORDER: {"{" s nameptr "{ff~}{ll}{, jj}{, vv}" format.name$ * "}" * 't := }
         {"\bibinfo{person}{" s nameptr "{vv }{ll}{, jj}{, ff}" format.name$ * "}" * 't := }
-        {"\bibinfo{person}{" s nameptr "{ff }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
+        {"\bibinfo{person}{" s nameptr "{vv }{ll}{, jj}{, ff}" format.name$ * "}" * 't := }
       if$
       nameptr #1 >
         {

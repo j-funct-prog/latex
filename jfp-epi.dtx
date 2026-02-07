@@ -157,6 +157,7 @@
 % \citestyle{acmauthoryear}
 % \end{verbatim}
 % switches to author--year references.
+% Use the \texttt{JFP-Reference-Format} bibliography style.
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
@@ -174,6 +175,7 @@
 % \item delete the \texttt{\string\setcopyright} declaration (the default is \texttt{cc})
 % \item delete the \texttt{\string\acmJournal} declaration (the default is \texttt{JFP})
 % \item modify the author email addresses: replace each \texttt{\string\email} outside an \texttt{\string\affiliation} with a corresponding \texttt{\string\authoremail} at the end of the \texttt{\string\affiliation}
+% \item change the bibliography style from \texttt{ACM-Reference-Format} to \texttt{JFP-Reference-Format}.
 % \end{itemize}
 %
 % \section{Adapting a document written using CUP's class}
@@ -191,7 +193,7 @@
 % and ``education matters'' papers)
 % \item manually edit the author information according to the new
 % interface---that is, like \texttt{acmart} except for email addresses
-% \item delete any \texttt{\string\bibliographystyle} declaration (the default is \texttt{ACM-Reference-Format})
+% \item change any \texttt{\string\bibliographystyle} declaration to use \texttt{JFP-Reference-Format}
 % \item add the line
 % \begin{verbatim}
 % \usepackage{jfp-cup2epi}
