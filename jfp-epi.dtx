@@ -9326,12 +9326,14 @@ JFP,
 %    \begin{macrocode}
 \let\@vspace@orig=\@vspace
 \let\@vspacer@orig=\@vspacer
+\ifjfp\else
 \apptocmd{\@vspace}{\ClassWarning{\@classname}{\string\vspace\space should
     only be used to provide space above/below surrounding
     objects}}{}{}
 \apptocmd{\@vspacer}{\ClassWarning{\@classname}{\string\vspace\space should
     only be used to provide space above/below surrounding
     objects}}{}{}
+\fi
 \let\@vspace@acm=\@vspace
 \let\@vspacer@acm=\@vspacer
 %    \end{macrocode}
