@@ -2831,10 +2831,11 @@
 \define@boolkey+{\@classname.cls}[@ACM@]{authordraft}[true]{%
   \if@ACM@authordraft
     \PackageInfo{\@classname}{Using authordraft mode}%
-    \@ACM@timestamptrue
     \@ACM@reviewtrue
 \ifjfp
     \@ACM@watermarktrue
+\else
+    \@ACM@timestamptrue
 \fi
   \else
     \PackageInfo{\@classname}{Not using authordraft mode}%
