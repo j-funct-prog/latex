@@ -54,5 +54,5 @@ distrib: all docclean
 	README-jfp.txt \
 	jfp-epi.cls JFP-Reference-Format.bst jfp-cup2epi.sty jfp-logo.pdf \
 	jfp-epi-guide.pdf \
-	jfptemplate.tex jfptemplate.pdf
+	jfptemplate.tex jfptemplate.bib jfptemplate.pdf
 
