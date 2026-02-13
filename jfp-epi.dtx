@@ -114,8 +114,6 @@
 % \end{verbatim}
 % or omit them.
 %
-% There is a \texttt{authordraft} mode, which should be used for everything but the final version to be published in JFP; the page header on the first page specifies that this is an ``author draft, under consideration for JFP'', to avoid giving the false impression that the paper has already been published in the journal. This is turned on by default, but is overridable by specifying \texttt{authordraft=false} as a document class option. As with \texttt{acmart}, it turns on review mode (with automatic linenumbering) and includes a watermark, which can be turned off with \texttt{review=false} and \texttt{watermark=false} respectively.
-%
 % The author names and affiliations are set in almost the same way as
 % with \texttt{acmart.cls}. The only difference is that the email
 % address should be specified as part of the affiliation, not
@@ -152,14 +150,29 @@
 % \end{verbatim}
 % Valid choices are \texttt{research} (the default), \texttt{pearl}, \texttt{theory}, \texttt{education}.
 %
-% The document class options \texttt{anonymous}, \texttt{review},
-% \texttt{screen} from \texttt{acmart} are all still
-% available. Numeric references are used by default; specifying
+% Numeric references are used by default; specifying
 % \begin{verbatim}
 % \citestyle{acmauthoryear}
 % \end{verbatim}
 % switches to author--year references.
 % Use the \texttt{JFP-Reference-Format} bibliography style.
+%
+% There is an \texttt{authordraft} mode, which should be used for
+% everything but the final version to be published in JFP; the page
+% header on the first page specifies that this is an ``author draft,
+% under consideration for JFP'', to avoid giving the false impression
+% that the paper has already been published in the journal. This is
+% turned on by default, but is overridable by specifying
+% \texttt{authordraft=false} as a document class option. As with
+% \texttt{acmart}, it turns on review mode (with automatic
+% linenumbering) and includes a watermark, which can be turned off
+% with \texttt{review=false} and \texttt{watermark=false}
+% respectively.
+%
+% To summarize, the version submitted to JFP for review does not need
+% any options passed to the document class; the defaults should
+% suffice. For the final version, specify \texttt{authordraft=false}
+% and \texttt{review=false}.
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
