@@ -6510,6 +6510,8 @@ JFP,
    \href{\ACM@CC@Url}{\includegraphics[height=5ex]{doclicense-CC-\ACM@cc@type-88x31}}%
 \ifjfp
    \quad % CC logo and text on same line
+   \begin{tabular}[b]{@{}l@{}}
+   \copyright\ \@copyrightyear\ \@copyrightowner\\
 \else
    \\
 \fi
@@ -6525,8 +6527,9 @@ JFP,
      ~\IfEq{\ACM@cc@version}{4.0}{4.0 International}{3.0 Unported}%
    }
    License.}%
-\iffalse % not used
-\par \@journalNameShort, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.
+\ifjfp
+   \end{tabular}
+\else
 \fi
  \fi}
 %    \end{macrocode}
