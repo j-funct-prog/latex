@@ -2839,6 +2839,11 @@
 \fi
   \else
     \PackageInfo{\@classname}{Not using authordraft mode}%
+\ifjfp
+    \@ACM@reviewfalse
+    \@ACM@watermarkfalse
+    \@ACM@timestampfalse
+\fi
   \fi}{\PackageError{\@classname}{The option authordraft can be either true or
     false}}
 \ifjfp
