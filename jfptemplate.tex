@@ -1,6 +1,12 @@
 % A minimal template for a JFP paper using the Episciences style
 
-\documentclass{jfp-epi}
+\newif\ifbiblatex 
+\biblatextrue % use BibLaTeX, or...
+% \biblatexfalse % ...stick with BibTeX
+
+\documentclass[%
+  \ifbiblatex natbib=false,\fi
+]{jfp-epi}
 
 \usepackage{lipsum} % just to generate some text
 
@@ -9,6 +15,17 @@
 \jfpDOI{12345.67890}
 \jfpYear{2026}
 \jfpMonth{1}
+
+\ifbiblatex
+\RequirePackage[datamodel=acmdatamodel,
+  style=acmnumeric, % use style=acmauthoryear for publications that require it
+  natbib=true]{biblatex}
+\addbibresource{jfptemplate.bib}
+\fi
+
+\received{20 February 2007}
+\received[revised]{12 March 2009}
+\received[accepted]{5 June 2009}
 
 \begin{document}
 
@@ -43,8 +60,12 @@ All my rocks are available for inspection.
 
 This work was sponsored by Cambrian Mining Incorporated.
 
+\ifbiblatex
+\printbibliography
+\else
 \bibliographystyle{JFP-Reference-Format}
 \bibliography{jfptemplate}
+\fi
 
 \end{document}
 
