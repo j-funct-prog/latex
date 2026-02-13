@@ -114,6 +114,8 @@
 % \end{verbatim}
 % or omit them.
 %
+% There is a \texttt{authordraft} mode, which should be used for everything but the final version to be published in JFP; the page header on the first page specifies that this is an ``author draft, under consideration for JFP'', to avoid giving the false impression that the paper has already been published in the journal. This is turned on by default, but is overridable by specifying \texttt{authordraft=false} as a document class option. As with \texttt{acmart}, it turns on review mode (with automatic linenumbering) and includes a watermark, which can be turned off with \texttt{review=false} and \texttt{watermark=false} respectively.
+%
 % The author names and affiliations are set in almost the same way as
 % with \texttt{acmart.cls}. The only difference is that the email
 % address should be specified as part of the affiliation, not
@@ -2622,6 +2624,21 @@
 %
 % \end{macro}
 %
+% \begin{macro}{\if@watermark}
+%   Whether we use a watermark
+%    \begin{macrocode}
+\define@boolkey+{\@classname.cls}[@ACM@]{watermark}[true]{%
+  \if@ACM@screen
+    \PackageInfo{\@classname}{Using watermarkmode}%
+  \else
+    \PackageInfo{\@classname}{Not using watermark mode}%
+  \fi}{\PackageError{\@classname}{The option watermark can be either true or
+    false}}
+\ExecuteOptionsX{watermark=false}
+%    \end{macrocode}
+%
+% \end{macro}
+%
 % \begin{macro}{\if@ACM@urlbreakonhyphens}
 % \changes{1.60}{2019/04/22}{introduced macro}
 %    \begin{macrocode}
@@ -2799,11 +2816,18 @@
     \PackageInfo{\@classname}{Using authordraft mode}%
     \@ACM@timestamptrue
     \@ACM@reviewtrue
+\ifjfp
+    \@ACM@watermarktrue
+\fi
   \else
     \PackageInfo{\@classname}{Not using authordraft mode}%
   \fi}{\PackageError{\@classname}{The option authordraft can be either true or
     false}}
+\ifjfp
+\ExecuteOptionsX{authordraft=true}
+\else
 \ExecuteOptionsX{authordraft=false}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -3847,12 +3871,14 @@
 % Author-draft mode or sigchi-a mode
 %    \begin{macrocode}
 \if@ACM@authordraft
+  \if@ACM@watermark
   \RequirePackage{draftwatermark}
   \SetWatermarkFontSize{0.5in}
   \SetWatermarkColor[gray]{.9}
   \SetWatermarkText{\parbox{12em}{\centering
       Unpublished working draft.\\
       Not for distribution.}}
+  \fi
 \else
   \if@ACM@sigchiamode
     \if@ACM@nonacm\else
@@ -8456,8 +8482,13 @@ JFP,
   \renewcommand{\footrulewidth}{\z@}%
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
+    \if@ACM@authordraft
+      \fancyhead[LO]{\ACM@linecountL\@headfootfont 
+        Author draft, under consideration for JFP.}
+    \else
       \fancyhead[LO]{\ACM@linecountL\@headfootfont 
         \@journalNameShort, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.}
+    \fi
       % \fancyhead[RO]{\hbox{\vbox to 10pt{\includegraphics[width=7mm]{jfp-logo.pdf}\vss}}}
 \else
     \ifcase\ACM@format@nr
