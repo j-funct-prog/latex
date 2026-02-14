@@ -1,8 +1,8 @@
 % A minimal template for a JFP paper using the Episciences style
 
 \newif\ifbiblatex 
-\biblatextrue % use BibLaTeX, or...
-% \biblatexfalse % ...stick with BibTeX
+% \biblatextrue % use BibLaTeX, or...
+\biblatexfalse % ...stick with BibTeX
 
 \documentclass[%
   \ifbiblatex natbib=false,\fi
@@ -63,7 +63,7 @@ This work was sponsored by Cambrian Mining Incorporated.
 \ifbiblatex
 \printbibliography
 \else
-\bibliographystyle{JFP-Reference-Format}
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{jfptemplate}
 \fi
 
