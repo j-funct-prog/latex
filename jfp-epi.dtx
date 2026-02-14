@@ -167,12 +167,12 @@
 % \texttt{acmart}, it turns on review mode (with automatic
 % linenumbering) and includes a watermark, which can be turned off
 % with \texttt{review=false} and \texttt{watermark=false}
-% respectively.
+% respectively. There is also an option \texttt{final} which is 
+% equivalent to \texttt{authordraft=false,review=false}.
 %
 % To summarize, the version submitted to JFP for review does not need
 % any options passed to the document class; the defaults should
-% suffice. To prepare the final version for publication, specify \texttt{authordraft=false}
-% and \texttt{review=false}.
+% suffice. To prepare the final version for publication, specify \texttt{final}.
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
@@ -2851,6 +2851,7 @@
 \else
 \ExecuteOptionsX{authordraft=false}
 \fi
+\DeclareOptionX{final}{\@ACM@authordraftfalse\@ACM@reviewfalse}
 %    \end{macrocode}
 %
 % \end{macro}
