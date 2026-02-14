@@ -165,9 +165,9 @@
 % turned on by default, but is overridable by specifying
 % \texttt{authordraft=false} as a document class option. As with
 % \texttt{acmart}, it turns on review mode (with automatic
-% linenumbering) and includes a watermark, which can be turned off
-% with \texttt{review=false} and \texttt{watermark=false}
-% respectively. There is also an option \texttt{final} which is 
+% linenumbering), which can be turned off with \texttt{review=false}. 
+% (In contrast to \texttt{acmart}, it does not turn on the \texttt{watermark} option.)
+% There is also an option \texttt{final} which is 
 % equivalent to \texttt{authordraft=false,review=false}.
 %
 % To summarize, the version submitted to JFP for review does not need
@@ -2833,7 +2833,6 @@
     \PackageInfo{\@classname}{Using authordraft mode}%
     \@ACM@reviewtrue
 \ifjfp
-    \@ACM@watermarktrue
 \else
     \@ACM@timestamptrue
 \fi
@@ -2841,7 +2840,6 @@
     \PackageInfo{\@classname}{Not using authordraft mode}%
 \ifjfp
     \@ACM@reviewfalse
-    \@ACM@watermarkfalse
     \@ACM@timestampfalse
 \fi
   \fi}{\PackageError{\@classname}{The option authordraft can be either true or
