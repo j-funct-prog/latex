@@ -159,8 +159,8 @@
 %
 % There is an \texttt{authordraft} mode, which should be used for
 % everything but the final version to be published in JFP; the page
-% header on the first page specifies that this is an ``author draft,
-% under consideration for JFP'', to avoid giving the false impression
+% header on the first page specifies that this is a ``DRAFT~---
+% submitted for publication'', to avoid giving the false impression
 % that the paper has already been published in the journal. This is
 % turned on by default, but is overridable by specifying
 % \texttt{authordraft=false} as a document class option. As with
@@ -8500,6 +8500,9 @@ JFP,
 % \changes{v2.03}{2024/02/04}{Special treatment of tog}
 %   The page style for the first page only.
 %    \begin{macrocode}
+\ifjfp
+  \def\JFPdraftheader{DRAFT --- submitted for publication.}
+\fi
 \AtBeginDocument{%
 \fancypagestyle{firstpagestyle}{%
   \fancyhf{}%
@@ -8508,8 +8511,8 @@ JFP,
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
     \if@ACM@authordraft
-      \fancyhead[LO]{\ACM@linecountL\@headfootfont 
-        Author draft, under consideration for JFP.}
+      \fancyhead[LO]{\ACM@linecountL}
+      \fancyhead[CO]{\@headfootfont\JFPdraftheader}
     \else
       \fancyhead[LO]{\ACM@linecountL\@headfootfont 
         \@journalName, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.}
