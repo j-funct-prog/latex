@@ -7162,15 +7162,12 @@ JFP,
 % \begin{macro}{\@mktitle@jfp}
 %   The version of \cs{mktitle} for JFP
 %    \begin{macrocode}
+\def\@jfp@article@type@font{\rmfamily\mdseries\upshape\Large}%
 \def\@mktitle@jfp{% based on \mktitle@i
   \hsize=\textwidth
-%  \if@ACM@acmcp
-%    \advance\hsize by -6pc%
-%  \fi
   \@ACM@title@width=\hsize
   \setbox\mktitle@bx=\vbox{\noindent
      \parbox[t]{\@ACM@title@width}{\centering % \raggedright
-\def\@jfp@article@type@font{\rmfamily\mdseries\upshape\Large}
 \ifx\@jfp@article@type@banner\@empty\else
   \@jfp@article@type@font \@jfp@article@type@banner\bigskip\par
 \fi
@@ -7334,11 +7331,16 @@ JFP,
   code}\unskip\ignorespaces} 
 \if@ACM@journal
 \ifjfp
-  \def\authoremail#1{\par(email: \href{mailto:#1}{\texttt{#1}})\ignorespaces} % jfp
+  \def\authoremail#1{\par(email: \href{mailto:#1}{\texttt{#1}})\par\unskip\ignorespaces}
 \fi
   \def\position#1{\unskip\ignorespaces}
+\ifjfp
+  \def\institution#1{\global\@ACM@instpresenttrue
+    \unskip#1\ignorespaces}
+\else
   \def\institution#1{\global\@ACM@instpresenttrue
     \unskip~#1\ignorespaces}
+\fi
   \def\city#1{\global\@ACM@citypresenttrue\unskip\ignorespaces}
   \def\state#1{\unskip\ignorespaces}
   \newcommand\department[2][0]{\unskip\ignorespaces}
@@ -7559,7 +7561,7 @@ JFP,
 %
 %
 %
-% \begin{macro}{\@mkauthors@i}
+% \begin{macro}{\@mkauthors@jfp}
 % Authors and affiliations for JFP
 %    \begin{macrocode}
 \def\@mkauthors@jfp{% based on \mkauthors@i
@@ -7591,7 +7593,7 @@ JFP,
     \fi
      \global\let\and\@typeset@author@line}%
   \global\setbox\mktitle@bx=\vbox{\noindent\unvbox\mktitle@bx\par%\medskip % don't need this skip
-    \renewcommand{\baselinestretch}{1} % authors set more compactly
+    \renewcommand{\baselinestretch}{1}% authors set more compactly
     \centering % authors are centred, like title
     \noindent\addresses\@typeset@author@line
    \par\medskip}%
