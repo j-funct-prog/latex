@@ -5994,7 +5994,7 @@ JFP,
 \newcommand\received[2][]{\def\@tempa{#1}%
   \ifx\@tempa\@empty
     \ifx\@received\@empty
-      \gdef\@received{Submitted #2}%
+      \gdef\@received{Received #2}%
     \else
       \g@addto@macro{\@received}{; revised #2}%
     \fi
@@ -8501,9 +8501,6 @@ JFP,
 % \changes{v2.03}{2024/02/04}{Special treatment of tog}
 %   The page style for the first page only.
 %    \begin{macrocode}
-\ifjfp
-  \def\JFPdraftheader{DRAFT --- submitted for publication.}
-\fi
 \AtBeginDocument{%
 \fancypagestyle{firstpagestyle}{%
   \fancyhf{}%
@@ -8515,12 +8512,12 @@ JFP,
     \fancyfoot[LO]{
   \@headfootfont
   \if@ACM@authordraft
-      \textbf{DRAFT PAPER UNDER REVIEW.}\\
+      \textbf{DRAFT PAPER UNDER REVIEW}\\
   \else
-        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate.\\
-        \@formatdoi{\@acmDOI}.
+        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate\\
+        \@formatdoi{\@acmDOI}\ \ 
   \fi
-      \ifx\@received\@empty Submitted \today.\else\@received.\fi
+      \ifx\@received\@empty Draft of \today\else\@received\fi
   }
 \else
     \ifcase\ACM@format@nr
