@@ -5994,7 +5994,7 @@ JFP,
 \newcommand\received[2][]{\def\@tempa{#1}%
   \ifx\@tempa\@empty
     \ifx\@received\@empty
-      \gdef\@received{Received #2}%
+      \gdef\@received{Submitted #2}%
     \else
       \g@addto@macro{\@received}{; revised #2}%
     \fi
@@ -8281,7 +8281,7 @@ JFP,
 %   The font to typeset header and footer text.
 %    \begin{macrocode}
 \ifjfp
-\def\@headfootfont{\itshape\footnotesize}
+\def\@headfootfont{\rmfamily\footnotesize}
 \else
 \def\@headfootfont{\sffamily\footnotesize}
 \fi
@@ -8511,15 +8511,17 @@ JFP,
   \renewcommand{\footrulewidth}{\z@}%
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
-    \if@ACM@authordraft
-      \fancyhead[LO]{\ACM@linecountL}
-      \fancyhead[CO]{\@headfootfont\JFPdraftheader}
-    \else
-      \fancyhead[LO]{\ACM@linecountL\@headfootfont 
-        \@journalName, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@acmDOI.}
-    \fi
-      % \fancyhead[RO]{\hbox{\vbox to 10pt{\includegraphics[width=7mm]{jfp-logo.pdf}\vss}}}
-    \fancyfoot[LO]{\ifx\@received\@empty\else\@headfootfont\@received\fi}
+    \fancyhead[LO]{\ACM@linecountL}
+    \fancyfoot[LO]{
+  \@headfootfont
+  \if@ACM@authordraft
+      \textbf{DRAFT PAPER UNDER REVIEW.}\\
+  \else
+        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate.\\
+        \@formatdoi{\@acmDOI}.
+  \fi
+      \ifx\@received\@empty Submitted \today.\else\@received.\fi
+  }
 \else
     \ifcase\ACM@format@nr
     \relax % manuscript
