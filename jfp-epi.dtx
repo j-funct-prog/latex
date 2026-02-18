@@ -6005,10 +6005,12 @@ JFP,
       \g@addto@macro{\@received}{; #1 #2}%
     \fi
   \fi}
+\ifjfp\else
 \AtEndDocument{%
   \ifx\@received\@empty\else
     \par\bigskip\noindent{\small\normalfont\@received\par}%
   \fi}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
