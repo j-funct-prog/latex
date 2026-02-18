@@ -6357,7 +6357,11 @@ JFP,
 % \changes{v1.32}{2017/04/07}{New doi format}
 %   Print a clickable DOI
 %    \begin{macrocode}
+\ifjfp
+\def\@formatdoi#1{\href{https://doi.org/#1}{#1}}
+\else
 \def\@formatdoi#1{\url{https://doi.org/#1}}
+\fi
 %    \end{macrocode}
 %
 % \end{macro}
@@ -8517,7 +8521,7 @@ JFP,
   \if@ACM@authordraft
       \textbf{DRAFT PAPER UNDER REVIEW}\\
   \else
-        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, \@formatdoi{\@acmDOI}. \\
+        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@formatdoi{\@acmDOI}. \\
   \fi
       \ifx\@received\@empty Draft of \today\else\@received\fi
   }
