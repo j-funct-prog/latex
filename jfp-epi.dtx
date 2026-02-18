@@ -112,7 +112,8 @@
 % \jfpJournal{JFP} % the default
 % \setcopyright{cc} % the default
 % \end{verbatim}
-% or omit them.
+% or omit them. If the Creative Commons license is not what you want for a 
+% draft of the paper, you can \verb"\setcopyright{none}".
 %
 % The author names and affiliations are set in almost the same way as
 % with \texttt{acmart.cls}. The only difference is that the email
@@ -159,9 +160,9 @@
 %
 % There is an \texttt{authordraft} mode, which should be used for
 % everything but the final version to be published in JFP; the page
-% header on the first page specifies that this is a ``DRAFT~---
-% submitted for publication'', to avoid giving the false impression
-% that the paper has already been published in the journal. This is
+% footer on the first page specifies that this is a ``DRAFT PAPER
+% UNDER REVIEW'', to avoid giving the false impression
+% that this draft has already been published in the journal. This is
 % turned on by default, but is overridable by specifying
 % \texttt{authordraft=false} as a document class option. As with
 % \texttt{acmart}, it turns on review mode (with automatic
@@ -169,6 +170,10 @@
 % (In contrast to \texttt{acmart}, it does not turn on the \texttt{watermark} option.)
 % There is also an option \texttt{final} which is 
 % equivalent to \texttt{authordraft=false,review=false}.
+%
+% As with \texttt{acmart}, there is a \texttt{\string\received}
+% command with which to specify dates of submission, revision, and so
+% on. By default, it shows the date the document was \LaTeX{}ed.
 %
 % To summarize, the version submitted to JFP for review does not need
 % any options passed to the document class; the defaults should
