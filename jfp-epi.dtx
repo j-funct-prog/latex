@@ -8509,6 +8509,7 @@ JFP,
   \if@ACM@journal@bibstrip@or@tog
 \ifjfp
     \fancyhead[LO]{\ACM@linecountL}
+    \ifnum\acm@copyrightmode=0\relax \renewcommand{\footrulewidth}{0.4pt}\fi
     \fancyfoot[LO]{
   \@headfootfont
   \if@ACM@authordraft
