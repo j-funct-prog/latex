@@ -173,7 +173,7 @@
 %
 % As with \texttt{acmart}, there is a \texttt{\string\received}
 % command with which to specify dates of submission, revision, and so
-% on. By default, it shows the date the document was \LaTeX{}ed.
+% on. 
 %
 % To summarize, the version submitted to JFP for review does not need
 % any options passed to the document class; the defaults should
@@ -8533,7 +8533,8 @@ JFP,
   \else
         \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@formatdoi{\@acmDOI}. \\
   \fi
-      \ifx\@received\@empty Draft of \today\else\@received\fi
+      \ifx\@received\@empty % Draft of \today
+      \else\@received\fi
   }
 \else
     \ifcase\ACM@format@nr
