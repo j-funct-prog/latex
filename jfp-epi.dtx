@@ -8531,11 +8531,15 @@ JFP,
   \if@ACM@authordraft
       \textbf{DRAFT PAPER UNDER REVIEW}\\
   \else
-        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate, DOI \@formatdoi{\@acmDOI}. \\
+        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate\\
   \fi
       \ifx\@received\@empty % Draft of \today
       \else\@received\fi
   }
+  \if@ACM@authordraft
+  \else \fancyfoot[RO]{\@headfootfont DOI: \@formatdoi{\@acmDOI}}
+  \fi
+
 \else
     \ifcase\ACM@format@nr
     \relax % manuscript
