@@ -5353,6 +5353,7 @@ JFP,
 % special macro |\csname typeset@author\the\num@authors\endcsname|,
 % which is defined by \cs{orcid} command.
 %    \begin{macrocode}
+\sodef\spaced{}{0.3em}{0.9em}{0.9em}
 \renewcommand\author[2][]{%
   \IfSubStr{\detokenize{#2}}{,}{\ClassWarning{\@classname}{Do not put several
       authors in the same \string\author\space macro!}}{}%
@@ -5370,14 +5371,14 @@ JFP,
     \else
       \expandafter\gdef\expandafter\addresses\expandafter{%
         \expandafter\@author\expandafter{%
-          \csname typeset@author\the\num@authors\endcsname{\so{#2}}}}%
+          \csname typeset@author\the\num@authors\endcsname{\spaced{#2}}}}%
       \gdef\authors{#2}%
     \fi
   \else
     \if@ACM@anonymous\else
     \expandafter\g@addto@macro\expandafter\addresses\expandafter{%
       \expandafter\and\expandafter\@author\expandafter{%
-        \csname typeset@author\the\num@authors\endcsname{\so{#2}}}}%
+        \csname typeset@author\the\num@authors\endcsname{\spaced{#2}}}}%
       \g@addto@macro\authors{\and#2}%
     \fi
   \fi
