@@ -5353,7 +5353,7 @@ JFP,
 % special macro |\csname typeset@author\the\num@authors\endcsname|,
 % which is defined by \cs{orcid} command.
 %    \begin{macrocode}
-\sodef\spaced{}{0.3em}{0.9em}{0.9em}
+\sodef\spaced{}{0.15em}{0.5em}{0.9em}
 \renewcommand\author[2][]{%
   \IfSubStr{\detokenize{#2}}{,}{\ClassWarning{\@classname}{Do not put several
       authors in the same \string\author\space macro!}}{}%
@@ -7452,7 +7452,7 @@ JFP,
 %    \begin{macrocode}
 \ifjfp
   \def\@authorfont{\normalsize\rmfamily}
-  \def\@affiliationfont{\small\itshape}
+  \def\@affiliationfont{\footnotesize\itshape}
 \else
 \ifcase\ACM@format@nr
 \relax % manuscript
@@ -7499,8 +7499,8 @@ JFP,
   \ifx\@currentaffiliations\@empty\else
     \andify\@currentaffiliations
 \ifjfp
-%       \unskip\medskip\par\noindent{\@currentaffiliations}\bigskip\par % linebreak not comma between name and affiliation
-      \unskip\smallskip\par\noindent{\@currentaffiliations}\medskip\par % linebreak not comma between name and affiliation; make more compact
+%       \unskip\medskip\par\noindent{\@currentaffiliations}\medskip\smallskip\par % linebreak not comma between name and affiliation
+      \unskip\smallskip\par\noindent{\@currentaffiliations}\medskip\smallskip\par % linebreak not comma between name and affiliation; make more compact
 \else
       \unskip, {\@currentaffiliations}\par
 \fi
