@@ -4428,6 +4428,11 @@
   \fi
 \fi
 \fi
+\ifjfp
+  \captionsetup{labelfont={small},
+    textfont={small}, margin=\z@}
+  \captionsetup[figure]{name={Fig.}}
+\else\fi
 %    \end{macrocode}
 %
 % \begin{macro}{sidebar}
