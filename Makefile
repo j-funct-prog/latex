@@ -6,9 +6,7 @@
 
 PACKAGE=jfp-epi
 
-
 PDF = $(PACKAGE).pdf 
-
 
 all:  $(PACKAGE).dtx $(PACKAGE).ins $(PACKAGE).cls $(PACKAGE)-guide.pdf
 
@@ -20,7 +18,6 @@ all:  $(PACKAGE).dtx $(PACKAGE).ins $(PACKAGE).cls $(PACKAGE)-guide.pdf
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
 	do pdflatex $<; done
 
-
 jfp-epi-guide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
 	pdflatex -jobname jfp-epi-guide $(PACKAGE).dtx
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' jfp-epi-guide.log) \
@@ -29,30 +26,32 @@ jfp-epi-guide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
 %.cls:   %.ins %.dtx
 	pdflatex $<
 
-
 .PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls
 
+jfptemplate: $(PACKAGE).cls
+	latexmk jfptemplate
+
+jfptemplate-biblatex: $(PACKAGE).cls
+	latexmk jfptemplate-biblatex
 
 docclean:
 	$(RM)  *.log *.aux \
 	*.cfg *.glo *.idx *.toc \
 	*.ilg *.ind *.out *.lof \
 	*.lot *.bbl *.blg *.gls *.cut *.hd \
-	*.dvi *.ps *.thm *.tgz *.zip *.rpi
-
+	*.dvi *.ps *.thm *.tgz *.zip *.rpi *.xcp
+	latexmk -bibtex -C
 
 clean: docclean
 	$(RM)  $(PACKAGE).cls 
 
-
 distclean: clean
 	$(RM)  *.pdf 
 
-
 distrib: all docclean
-	zip -r jfp-epi.zip  \
+	zip -r jfp-epi.zip \
 	README-jfp.txt \
 	jfp-epi.cls jfp-cup2epi.sty jfp-logo.pdf \
 	jfp-epi-guide.pdf \
-	jfptemplate.tex jfptemplate.bib jfptemplate.pdf
+	jfptemplate.tex jfptemplate.bib jfptemplate-biblatex.tex
 
