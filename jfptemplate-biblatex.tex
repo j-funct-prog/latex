@@ -1,22 +1,37 @@
+%% THIS TEMPLATE SHOWS HOW TO CONFIGURE THE JFP STYLE IF YOU ARE USING
+%% BIBLATEX INSTEAD OF BIBTEX.
+
 %% For draft paper in the JFP style but not under review:
-% \documentclass{jfp-epi}
+% \documentclass[natbib=false]{jfp-epi}
 
 %% For draft paper to be reviewed for publication in JFP:
-% \documentclass[review]{jfp-epi}
+% \documentclass[natbib=false,review]{jfp-epi}
 
 %% For final paper to be published in JFP:
-\documentclass[final]{jfp-epi}
+\documentclass[natbib=false,final]{jfp-epi}
 
 \usepackage{lipsum} % just to generate some random text
 
 %% Numeric citations are the default.
-%% If you want author-year, then uncomment the following line:
-% \setcitestyle{acmauthoryear}
+\RequirePackage[datamodel=acmdatamodel,
+  style=acmnumeric,
+  natbib=true]{biblatex}
+
+%% If you want author-year, then replace the above with the following:
+% \RequirePackage[datamodel=acmdatamodel,
+%   style=acmauthoryear,
+%   natbib=true]{biblatex}
+
+%% The natbib=true option is selected above in order to provide
+%% compatibility with natbib citation commands like \citet.
+%% If you do not care about that, you can remove it.
+
+\addbibresource{jfptemplate.bib}
 
 %% The CC-BY publishing option is set by default.
 %% If you wish to use a different option for a draft paper,
 %% uncomment the following line:
-% \setcopyright{none}
+%% \setcopyright{none}
 
 %% The following incantations can be omitted for a draft paper:
 \jfpVolume{38}
@@ -57,8 +72,7 @@ This is my paper. I was inspired by \citet{Rubble&Flintstone60}.
 
 All my rocks are available at \texttt{rocksrepo.edu}.
 
-\bibliographystyle{ACM-Reference-Format}
-\bibliography{jfptemplate}
+\printbibliography
 
 \end{document}
 
