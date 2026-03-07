@@ -51,60 +51,73 @@
 %
 % \ifx\currentjob\guide\OnlyDescription\fi
 % \GetFileInfo{jfp-epi.dtx}
-% \title{\LaTeX{} Class for the \\ \emph{Journal of Functional Programming}}
-% \author{Jeremy Gibbons, after Boris Veytsman}
+% \title{\LaTeX{} class \texttt{jfp-epi} for the \\ \emph{Journal of Functional Programming}}
+% \author{Jeremy Gibbons, after Boris Veytsman,\\ with additional contributions from Derek Dreyer}
 % \date{\filedate, \fileversion}
 % \maketitle
 % \begin{abstract}
-%   This package provides a class for typesetting 
-%   articles in the Journal of Functional Programming.
-%   It is based on Boris Veytsman's \texttt{acmart.cls}.
+%   This document presents a \LaTeX\ class, \texttt{jfp-epi}, for
+%   typesetting articles in the Journal of Functional Programming
+%   under its new publication platform, Episciences.  It is based on
+%   Boris Veytsman's \texttt{acmart}.
 % \end{abstract}
 %
 %\section{Introduction}
 %\label{sec:intro}
 %
 % The \textit{Journal of Functional Programming} (JFP) was published
-% by Cambridge University Press from its founding in 1991 until the
+% by Cambridge University Press (CUP) from its founding in 1991 until the
 % end of 2025. At that point CUP ceased publication of the journal,
 % and transferred ownership of the title to the UK charity
 % \textit{Journal of Functional Programming} (Charity Number 1215989),
 % via a brief tenure under the \textit{Foundation Mathematics in Open
-% Access} (MathOA), published on the \textit{Episciences} platform.
+% Access} (MathOA).  JFP is now published as a Diamond
+% Open Access journal via the \textit{Episciences} platform.
 %
-% From January 2026, JFP is using this new \LaTeX{} document class
+% From January 2026, JFP is using a new \LaTeX{} document class
 % \texttt{jfp-epi.cls}. The class is a thin skin over Boris Veytsman's
-% \texttt{acmart.cls}, written for ACM publications, but mimicking the
-% layout that JFP had under CUP. In particular, this approach is
-% intended to simplify the task of revising a paper originally
-% published in PACMPL and presented at a conference such as ICFP into
-% an extended version for JFP.
+% \texttt{acmart.cls}, written for ACM publications, but to a large
+% extent mimicking the layout that JFP had under CUP. In particular,
+% this approach is intended to simplify the task of transforming a paper
+% originally published in PACMPL (and presented at a conference such as
+% ICFP) into an extended version for JFP.
 %
 % The interface for \texttt{jfp-epi.cls} is almost identical to that
 % of \texttt{acmart.cls}; so the main source of documentation for
 % \texttt{jfp-epi} is the documentation file \texttt{acmguide.pdf}
 % that comes with \texttt{acmart.cls}. Except where noted here,
-% features of \texttt{acmart} are expected also to work for
+% features of \texttt{acmart} are also expected to work for
 % \texttt{jfp-epi}. The purpose of this short document is to explain
 % the differences. It also explains explicitly how to take an existing
-% article written for \texttt{acmart} and revise it for JFP, and how
-% to adapt an article written for CUP's \texttt{jfp.cls} for
-% publication in JFP at Episciences.
+% article written either for \texttt{acmart} or for CUP's original
+% \texttt{jfp.cls} and revise it for the new JFP style.
 %
+% Included in the \texttt{jfp-epi} distribution are two example files,
+% \texttt{jfptemplate.tex} and \texttt{jfptemplate-biblatex.tex}, which
+% show how to set up the basic macros for a JFP paper (depending on
+% whether one is using Bib\TeX\ or Bib\LaTeX, respectively).  In this
+% document, we focus on the instructions for Bib\TeX, which (as with
+% \texttt{acmart}) is the preferred setup.  The adaptations for
+% Bib\LaTeX\ are essentially the same as described in the \texttt{acmart}
+% documentation.
 %
-% \section{Creating a document from scratch}
+% \section{Preparing a draft paper in the JFP style}
 %
-% You should use the document class \texttt{jfp-epi.cls}. In contrast
-% to \texttt{acmart.cls}, there is only one article type, namely
-% \texttt{jfp}; so you could start your document as follows:
+% To create a submission to JFP, you should use the document class \texttt{jfp-epi.cls}. In contrast
+% to \texttt{acmart.cls}, there is only one article type, so the
+% simplest way to start your document is as follows:
 % \begin{verbatim}
-% \documentclass[jfp]{jfp-epi}
-% \end{verbatim}
-% Of course, the sole available article type is also the default, so this option can be omitted:
-% \begin{verbatim}
-% \documentclass{jfp-epi}
-% \end{verbatim}
+% \documentclass[review]{jfp-epi} \end{verbatim}
+% By default, the JFP style is set to ``draft'' mode, so the above incantation will produce a paper that says ``DRAFT PAPER UNDER REVIEW'' at the bottom and has line numbers.  The line numbers are mandatory for papers undergoing review for publication in JFP, but if you wish to prepare the document for other purposes and do not want line numbers, simply omit the \texttt{review} option.
 %
+% Also by default, the JFP style will produce a document bearing the Creative
+% Commons license, as this is required for all published JFP papers.  If
+% this is not what you want for a draft paper, include the following in
+% your preamble:
+% \begin{verbatim}
+% \setcopyright{none} \end{verbatim}
+%
+% \iffalse
 % There is a new journal name \texttt{JFP}, which is now the default;
 % also, a Creative Commons license is the default. So you can specify
 % these:
@@ -114,11 +127,12 @@
 % \end{verbatim}
 % or omit them. If the Creative Commons license is not what you want for a 
 % draft of the paper, you can \verb"\setcopyright{none}".
-%
+% \fi
+% 
 % The author names and affiliations are set in almost the same way as
 % with \texttt{acmart.cls}. The only difference is that the email
 % address should be specified as part of the affiliation, not
-% separately; it should come after the address. And it should use the
+% separately, and it should use the
 % \texttt{\string\authoremail} macro instead of
 % \texttt{\string\email}. For example:
 % \begin{verbatim}
@@ -130,34 +144,35 @@
 %   \state{Ohio}
 %   \country{USA}
 %   \authoremail{trovato@corporation.com}
-% }
-% \end{verbatim}
-%
-% There are macros to set other standard metadata, defined as synonyms for similar macros in \texttt{acmart.cls}:
-% \begin{verbatim}
-% \jfpVolume{38}
-% \jfpArticle{3}
-% \jfpDOI{12345.67890}
-% \jfpYear{2026}
-% \jfpMonth{1}
-% \end{verbatim}
+% } \end{verbatim}
+% Please note that ORCIDs are required for all authors on JFP submissions.
 %
 % JFP has a number of special article types in addition to standard
 % research papers: functional pearls, theoretical pearls, and
 % ``education matters'' papers. These are specified via an option
 % given to the document class; for example:
 % \begin{verbatim}
-% \documentclass[pearl]{jfp-epi}
-% \end{verbatim}
-% Valid choices are \texttt{research} (the default), \texttt{pearl}, \texttt{theory}, \texttt{education}.
+% \documentclass[pearl]{jfp-epi} \end{verbatim}
+% Valid choices are \texttt{pearl}, \texttt{theory}, and \texttt{education}.
+% The default option (which you need not specify) is \texttt{research}.
 %
-% Numeric references are used by default; specifying
+% JFP now uses the \texttt{ACM-Reference-Format} bibliography style.
+% The incantations required for setting up the bibliography style are
+% different depending on whether you are using Bib\TeX\ or Bib\LaTeX.
+% As noted above, we will assume here that you are using Bib\TeX, but
+% the accompanying example file \texttt{jfptemplate-biblatex.tex}
+% shows how to set things up for Bib\LaTeX.  Assuming you are using
+% Bib\TeX, you should include the following:
 % \begin{verbatim}
-% \citestyle{acmauthoryear}
-% \end{verbatim}
-% switches to author--year references.
-% Use the \texttt{ACM-Reference-Format} bibliography style.
+% \bibliographystyle{ACM-Reference-Format} \end{verbatim}
 %
+% We do not care what citation style you use.  Standard options are
+% numeric and author-year.  Numeric citations are the default.  If you
+% wish to switch to author-year citations, you may instead specify
+% \begin{verbatim}
+% \citestyle{acmauthoryear} \end{verbatim}
+%
+% \iffalse
 % There is an \texttt{authordraft} mode, which should be used for
 % everything but the final version to be published in JFP; the page
 % footer on the first page specifies that this is a ``DRAFT PAPER
@@ -170,39 +185,79 @@
 % (In contrast to \texttt{acmart}, it does not turn on the \texttt{watermark} option.)
 % There is also an option \texttt{final} which is 
 % equivalent to \texttt{authordraft=false,review=false}.
+% \fi
 %
 % As with \texttt{acmart}, there is a \texttt{\string\received}
-% command with which to specify dates of submission, revision, and so
-% on. 
+% command with which to specify dates of submission, revision,
+% acceptance, and so on, which will appear at the bottom of the first
+% page.  These do not need to be specified for draft papers, but
+% authors are free to do so, e.g.
+% \begin{verbatim}
+% \received[Submitted]{2026-03-06} 
+% \received[revised]{2026-09-13} \end{verbatim}
 %
-% To summarize, the version submitted to JFP for review does not need
-% any options passed to the document class; the defaults should
-% suffice. To prepare the final version for publication, specify \texttt{final}.
+% \section{Preparing a final document for publication in JFP}
+%
+% To prepare the final version of your paper, begin your document as follows:
+% \begin{verbatim}
+% \documentclass[final]{jfp} \end{verbatim}
+%
+% There are macros to set other standard metadata, which are analogous
+% to similar macros in \texttt{acmart}, e.g.
+% \begin{verbatim}
+% \jfpVolume{38}
+% \jfpArticle{3}
+% \jfpDOI{12345.67890}
+% \jfpYear{2026}
+% \jfpMonth{1} \end{verbatim}
+% Authors of accepted papers will be given instructions for how to fill these in.
+%
+% There are several sections that may appear at the end of a JFP
+% article, such as acknowledgments, a data availability statement, and
+% a link to supplementary material.  There are no dedicated macros for
+% these sections; they can be formatted simply using the
+% \verb+\section*+ macro, e.g.\ \verb+\section*{Acknowledgments}+.
+%
+%
+% \section{Style guidelines for JFP}
+%
+% In the interest of simplifying life for authors, JFP imposes only
+% minimal style guidelines, most of which are baked into the style
+% file.
+%
+% One notable exception, inherited from the CUP incarnation of JFP, is
+% that the title of the paper, as well as all \verb+section+,
+% \verb+subsection+, \verb+subsubsection+, and \verb+paragraph+
+% headings, and all figure and table captions, should be in sentence
+% case rather than title case.  That means that only the first word
+% (or the first word after a colon), as well as proper nouns, should
+% be capitalized.  The section headings of the present document are an
+% example of this style.
+%
 %
 % \section{Adapting a document written using \texttt{acmart}}
 %
 % If you had written a paper for a SIGPLAN conference such as ICFP, formatted using the
 % document class declaration
 % \begin{verbatim}
-% \documentclass[acmsmall,screen]{acmart}
-% \end{verbatim}
+% \documentclass[acmsmall,screen]{acmart} \end{verbatim}
 % as specified in the call for papers, and based on the template
 % \texttt{sample-acmsmall.tex} provided by ACM, the necessary changes to adapt
-% the document for submission to JFP are:
+% the document for submission to JFP would be to:
 % \begin{itemize}
 % \item change the document class from \texttt{acmart} to \texttt{jfp-epi}
-% \item delete the optional argument \texttt{[acmsmall,screen]} from the document class
-% \item delete the \texttt{\string\setcopyright} declaration (the default is \texttt{cc})
-% \item delete the \texttt{\string\acmJournal} declaration (the default is \texttt{JFP})
-% \item modify the author email addresses: replace each \texttt{\string\email} outside an \texttt{\string\affiliation} with a corresponding \texttt{\string\authoremail} at the end of the \texttt{\string\affiliation}.
+% \item delete the optional arguments \texttt{[acmsmall,screen]} from the document class and add \texttt{review}
+% \item delete the \texttt{\string\setcopyright} declaration or set it to \texttt{none}
+% \item delete the \texttt{\string\acmJournal} declaration
+% \item modify the author email addresses: replace each \texttt{\string\email} outside an \texttt{\string\affiliation} block with a corresponding \texttt{\string\authoremail} at the end of the block.
 % \end{itemize}
 %
-% \section{Adapting a document written using CUP's class}
+% \section{Adapting a document written using CUP's JFP class}
 %
 % If you had written a paper for JFP using the CUP document class
 % \texttt{jfp.cls}, based on the template \texttt{jfpguide.tex} provided by
 % CUP, the necessary changes to adapt the document for the new JFP
-% publisher are:
+% publisher would be to:
 % \begin{itemize}
 % \item change the document class from \texttt{jfp} to \texttt{jfp-epi}
 % \item if the paper is a functional pearl, delete the optional
@@ -215,11 +270,10 @@
 % \item change any \texttt{\string\bibliographystyle} declaration to use \texttt{ACM-Reference-Format}
 % \item add the line
 % \begin{verbatim}
-% \usepackage{jfp-cup2epi}
-% \end{verbatim}
+% \usepackage{jfp-cup2epi} \end{verbatim}
 % after the \texttt{\string\documentclass} line
 % \end{itemize}
-% The final step provides synonyms for some of the
+% This final step provides synonyms for some of the
 % macros to match CUP expectations; as an alternative to using this
 % small package, you can make the changes manually:
 % \begin{itemize}
@@ -235,7 +289,7 @@
 % Older versions of CUP's \texttt{jfp.cls} supported a
 % \texttt{\string\subtitle}, but the latest version did not. However,
 % \texttt{acmart.cls} does, so that feature is again available if
-% wanted.
+% desired.
 %
 % \iffalse 
 % The Association for Computing
@@ -1845,7 +1899,7 @@
 %  eprint =       "960935712",
 %  primaryclass = "cs",
 % \end{verbatim}
-
+%
 %\subsubsection{Special entry types}
 %\label{sec:preprints}
 %
@@ -2525,7 +2579,7 @@
 \ProvidesFile{jfp-epi.dtx}
 %</gobble>
 %<class>\ProvidesClass{jfp-epi}
-[2026/02/04 v2.17 Typesetting articles for the Journal of Functional Programming]
+[2026/03/06 v1.0 Typesetting articles for the Journal of Functional Programming]
 %    \end{macrocode}
 %
 % \changes{v2.17}{2026/02/04}{Based on acmart v2.17}
