@@ -29,10 +29,10 @@ jfp-epi-guide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
 .PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls
 
 jfptemplate: $(PACKAGE).cls
-	latexmk jfptemplate
+	latexmk -pdf jfptemplate -shell-escape
 
 jfptemplate-biblatex: $(PACKAGE).cls
-	latexmk jfptemplate-biblatex
+	latexmk -pdf jfptemplate-biblatex -shell-escape
 
 docclean:
 	$(RM)  *.log *.aux \
@@ -51,7 +51,7 @@ distclean: clean
 distrib: all docclean
 	zip -r jfp-epi.zip \
 	README-jfp.txt \
-	jfp-epi.cls jfp-cup2epi.sty jfp-logo.pdf \
+	jfp-epi.cls jfp-cup2epi.sty \
 	jfp-epi-guide.pdf \
 	jfptemplate.tex jfptemplate.bib jfptemplate-biblatex.tex
 
