@@ -6,6 +6,7 @@ Apart from this README, the contents of the package are:
   jfp-cup2epi.sty: a small adapter from the old CUP document class
   jfp-epi-guide.pdf: documentation for the new document class
   jfptemplate.tex: a minimal template for a JFP paper using the new style
+  jfptemplate.bib: bib file accompanying jfptemplate.tex
   jfptemplate.pdf: a compiled version of the above
   jfptemplate-biblatex.tex: an alternate template for authors using BibLaTeX
 

@@ -40,18 +40,24 @@ docclean:
 	*.ilg *.ind *.out *.lof \
 	*.lot *.bbl *.blg *.gls *.cut *.hd \
 	*.dvi *.ps *.thm *.tgz *.zip *.rpi *.xcp
-	latexmk -bibtex -C
 
 clean: docclean
 	$(RM)  $(PACKAGE).cls 
+	latexmk -bibtex -C
 
 distclean: clean
 	$(RM)  *.pdf 
+	$(RM) -fr jfp-epi
 
 distrib: all docclean
-	zip -r jfp-epi.zip \
-	README-jfp.txt \
+	$(RM) -fr jfp-epi
+	mkdir jfp-epi
+	cp README-jfp.txt \
 	jfp-epi.cls jfp-cup2epi.sty \
-	jfp-epi-guide.pdf \
-	jfptemplate.tex jfptemplate.bib jfptemplate-biblatex.tex
+	jfp-epi-guide.pdf jfptemplate.pdf \
+	jfptemplate.tex jfptemplate.bib jfptemplate-biblatex.tex \
+	jfp-epi
+	zip -r jfp-epi.zip jfp-epi
+	$(RM) -fr jfp-epi
+
 
