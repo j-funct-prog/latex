@@ -52,7 +52,7 @@
 % \ifx\currentjob\guide\OnlyDescription\fi
 % \GetFileInfo{jfp-epi.dtx}
 % \title{\LaTeX{} class \texttt{jfp-epi} for the \\ \emph{Journal of Functional Programming}}
-% \author{Jeremy Gibbons, after Boris Veytsman,\\ with additional contributions from Derek Dreyer}
+% \author{Jeremy Gibbons and Derek Dreyer, after Boris Veytsman}
 % \date{\filedate, \fileversion}
 % \maketitle
 % \begin{abstract}
@@ -152,9 +152,10 @@
 % ``education matters'' papers. These are specified via an option
 % given to the document class; for example:
 % \begin{verbatim}
-% \documentclass[pearl]{jfp-epi} \end{verbatim}
-% Valid choices are \texttt{pearl}, \texttt{theory}, and \texttt{education}.
-% The default option (which you need not specify) is \texttt{research}.
+% \documentclass[pearl]{jfp-epi} 
+% \end{verbatim}
+% Valid choices are \texttt{pearl}, \texttt{theory}, \texttt{education}, and \texttt{research},
+% of which the last is the default option.
 %
 % JFP now uses the \texttt{ACM-Reference-Format} bibliography style.
 % The incantations required for setting up the bibliography style are
@@ -166,11 +167,12 @@
 % \begin{verbatim}
 % \bibliographystyle{ACM-Reference-Format} \end{verbatim}
 %
-% We do not care what citation style you use.  Standard options are
+% JFP does not mandate which citation style you use.  Standard options are
 % numeric and author-year.  Numeric citations are the default.  If you
 % wish to switch to author-year citations, you may instead specify
 % \begin{verbatim}
-% \citestyle{acmauthoryear} \end{verbatim}
+% \citestyle{acmauthoryear}
+% \end{verbatim}
 %
 % \iffalse
 % There is an \texttt{authordraft} mode, which should be used for
