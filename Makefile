@@ -49,7 +49,7 @@ distclean: clean
 	$(RM)  *.pdf 
 	$(RM) -fr jfp-epi
 
-distrib: all docclean
+distrib: all jfptemplate jfptemplate-biblatex docclean
 	$(RM) -fr jfp-epi
 	mkdir jfp-epi
 	cp README-jfp.txt \
@@ -59,5 +59,4 @@ distrib: all docclean
 	jfp-epi
 	zip -r jfp-epi.zip jfp-epi
 	$(RM) -fr jfp-epi
-
 

@@ -207,11 +207,10 @@
 % There are macros to set other standard metadata, which are analogous
 % to similar macros in \texttt{acmart}, e.g.
 % \begin{verbatim}
-% \jfpVolume{38}
-% \jfpArticle{3}
-% \jfpDOI{12345.67890}
-% \jfpYear{2026}
-% \jfpMonth{1} \end{verbatim}
+% \jfpVolume{99}
+% \jfpArticle{13}
+% \jfpDOI{10.46298/jfp.01234}
+% \jfpYear{2089} \end{verbatim}
 % Authors of accepted papers will be given instructions for how to fill these in.
 %
 % There are several sections that may appear at the end of a JFP
@@ -2585,7 +2584,7 @@
 \ProvidesFile{jfp-epi.dtx}
 %</gobble>
 %<class>\ProvidesClass{jfp-epi}
-[2026/03/06 v1.0 Typesetting articles for the Journal of Functional Programming]
+[2026/05/24 v1.1 Typesetting articles for the Journal of Functional Programming]
 %    \end{macrocode}
 %
 % \changes{v2.17}{2026/02/04}{Based on acmart v2.17}
@@ -8595,7 +8594,7 @@ JFP,
   \if@ACM@authordraft
       \textbf{DRAFT PAPER UNDER REVIEW}\\
   \else
-        \textbf{\@journalName}, Vol. \@acmVolume, Article \@acmArticle, \@acmPubDate\\
+        \textbf{\@journalName}, Volume \@acmVolume, Article \@acmArticle, \@acmYear\\
   \fi
       \ifx\@received\@empty % Draft of \today
       \else\@received\fi
